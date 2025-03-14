@@ -1,0 +1,36 @@
+.titleBar {
+    width: 95vw;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #c5d4c7;
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-left: 2.5vw;
+    position: sticky;
+    top: 0;
+}
+
+.titleBar .logo {
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-image: url('/vite.svg');
+}
+
+.tbItems {
+    display: flex;
+    gap: 5px;
+}
+
+.tbItems input {
+    background-color: #e6efe8;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 7px 5px;
+    border: none;
+}
