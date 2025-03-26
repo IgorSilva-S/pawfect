@@ -6,12 +6,12 @@
     height: 100px;
     justify-content: space-between;
     align-items: center;
-    background-color: #c5d4c7;
+    background-color: var(--cl-G1);
     border-radius: 16px;
     margin-top: 40px;
     margin-left: 2.5vw;
     position: sticky;
-    top: 0;
+    top: 40px;
 }
 
 .titleBar .logo {

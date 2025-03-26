@@ -3,8 +3,21 @@
   margin: 0;
 }
 
+:root {
+  --cl-G0: #e6efe8;
+  --cl-G1: #c5d4c7;
+  --cl-G2: #a9baae;
+  --cl-G3: #627f76;
+  --cl-BI1: #fbfbe2;
+  --cl-BI2: #e6d0b1;
+  --cl-O1: #deb297;
+  --cl-O2: #c98d7b;
+  --cl-BN1: #8a6662;
+  --cl-BN2: #452926; 
+}
+
 body {
-  background-color: #e6efe8;
+  background-color: var(--cl-G0);
 }
 
 section {
@@ -15,9 +28,7 @@ section {
 @keyframes entrance {
   from {
     opacity: 0;
-    padding-top: 180px;
   } to {
-    opacity: .8;
-    padding-top: 80px;
+    opacity: 1;
   }
 }
