@@ -1,16 +1,19 @@
 footer {
     width: 100vw;
     box-sizing: border-box;
-    padding: 20px 150px;
+    padding: 50px 150px;
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    grid-template-rows: auto auto;
-    gap: 20px;
+    grid-template-columns: 200px 200px 400px 400px;
+    justify-content: center;
+    align-content: center;
+    grid-template-rows: 150px 150px;
+    gap: 80px;
     grid-template-areas:
         "big-area big-area simple-1 simple-2"
         "big-area big-area simple-3 simple-4 "
     ;
-    background-color: var(--cl-G1)
+    background-color: var(--cl-G1);
+    color: var(--cl-G3)
 }
 
 .bigArea {
@@ -18,5 +21,5 @@ footer {
     border-radius: 16px;
     grid-area: big-area;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 20px;
 }
