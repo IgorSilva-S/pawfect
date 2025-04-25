@@ -3,6 +3,16 @@
   margin: 0;
 }
 
+@font-face {
+  font-family: 'titulo';
+  src: url(../public/fonts/NewSunRegular.ttf);
+}
+
+@font-face {
+  font-family: 'corpo';
+  src: url(../public/fonts/TiltWarp[XROT\,YROT].woff);
+}
+
 :root {
   --vclaro1: #e6efe8;
   --vclaro2: #c5d4c7;
@@ -17,7 +27,7 @@
 }
 
 body {
-  background-color: var(--cl-G0);
+  background-color: var(--vclaro1);
 }
 
 section {

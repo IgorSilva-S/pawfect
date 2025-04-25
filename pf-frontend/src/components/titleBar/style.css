@@ -40,7 +40,7 @@
     font-size: 1.5rem;
     margin-bottom: 1.4vh;
     margin-right: 2vw;
-    background-image: url('../../../public/img/lupa.png'); 
+    background-image: url('../../../public/img/menu/lupa.png'); 
     background-repeat: no-repeat;
     background-position: left 0.5vw center; 
     background-size: 3vh 3vh; 
@@ -61,7 +61,7 @@
     border: none;
     background-size: cover;
     background-position: center;
-    background-image: url('../../../public/img/carrinho.png');
+    background-image: url('../../../public/img/menu/carrinho.png');
     margin-right: 1vw;
 }
 
@@ -72,7 +72,7 @@
     border: none;
     background-size: cover;
     background-position: center;
-    background-image: url('../../../public/img/favs.png');
+    background-image: url('../../../public/img/menu/favs.png');
     margin-right: 1vw;
 }
 
@@ -83,6 +83,6 @@
     border: none;
     background-size: cover;
     background-position: center;
-    background-image: url('../../../public/img/user.png');
+    background-image: url('../../../public/img/menu/user.png');
     margin-right: 1vw;
 }

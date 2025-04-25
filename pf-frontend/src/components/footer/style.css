@@ -1,25 +1,58 @@
 footer {
+    font-family: corpo;
     width: 100vw;
+    height: 50vh;
     box-sizing: border-box;
     padding: 50px 150px;
     display: grid;
-    grid-template-columns: 200px 200px 400px 400px;
-    justify-content: center;
+    grid-template-columns: 250px 200px 400px 400px;
+    justify-content: left center;
     align-content: center;
     grid-template-rows: 150px 150px;
     gap: 80px;
     grid-template-areas:
         "big-area big-area simple-1 simple-2"
-        "big-area big-area simple-3 simple-4 "
-    ;
-    background-color: var(--cl-G1);
-    color: var(--cl-G3)
+        "big-area big-area simple-3 simple-4";
+    background-color: var(--vclaro2);
+    position: fixed;
+    bottom: 0vh;
+    left: 0vw;
+    color: var(--vescuro);
 }
 
 .bigArea {
-    background-color: var(--cl-G0);
-    border-radius: 16px;
+    border-radius: 25px;
     grid-area: big-area;
     box-sizing: border-box;
     padding: 20px;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    background-color: var(--vclaro1);
+}
+
+.other-area1{
+    margin-top: 5vh;
+}
+
+.other-area2{
+    margin-top: -6vh;
+}
+
+.simple1 {
+    grid-area: simple-1;
+    box-sizing: border-box;
+    margin-top: 5vh;
+}
+
+#title-footer{
+    font-size: 4vh;
+    margin-bottom: -2vh;
+    margin-top: 1vh;
+}
+
+.img-footer {
+    width: 3vw;
+    height: 3vw;
+    padding-right: 0.3vw;
+    padding-top: vw;
 }
