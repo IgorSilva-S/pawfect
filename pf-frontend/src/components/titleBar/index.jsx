@@ -6,23 +6,21 @@ export default function TitleBar() {
     return (
         <div className="titleBar">
             <Link to="/">
-                <div className="logo">
-
-                </div>
+                <div id="logo-menu"></div>
             </Link>
 
             <div className="tbItems">
-                <input type="search" name="" id="" />
+                <input  type="search" id="search-bar" />
                 <Link to="/cart">
-                    <button>Cart</button>
+                    <button id="cart"></button>
                 </Link>
                 <Link to="/liked">
-                    <button>Liked</button>
+                    <button id="liked"></button>
                 </Link>
                 <Link to="/user">
-                    <button>User</button>
+                    <button id="user"></button>
                 </Link>
             </div>
         </div>
     );
-}
+} 

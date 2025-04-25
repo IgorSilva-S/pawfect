@@ -6,31 +6,83 @@
     height: 100px;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--cl-G1);
+    background-color: var(--vclaro2);
     border-radius: 16px;
     margin-top: 40px;
     margin-left: 2.5vw;
     position: sticky;
-    top: 40px;
+    top: 5%;
 }
 
-.titleBar .logo {
-    width: 150px;
-    height: 150px;
+#logo-menu {
+    width: 20vh;
+    height: 20vh;
+    position: relative;
     background-size: cover;
     background-position: center;
-    background-image: url('/vite.svg');
+    background-image: url('../../../public/img/logo.png');
+    left: 15%;
 }
 
 .tbItems {
     display: flex;
-    gap: 5px;
+    width: 40vw;
+    height: 5vh;
+    margin-right: 3vw;
 }
 
-.tbItems input {
-    background-color: #e6efe8;
-    border-radius: 8px;
-    font-size: 14px;
-    padding: 7px 5px;
+#search-bar {
+    width: 28vw;
+    height: 5vh;
+    background-color: var(--vclaro1);
+    border-radius: 15px;
     border: none;
+    font-size: 1.5rem;
+    margin-bottom: 1.4vh;
+    margin-right: 2vw;
+    background-image: url('../../../public/img/lupa.png'); 
+    background-repeat: no-repeat;
+    background-position: left 0.5vw center; 
+    background-size: 3vh 3vh; 
+}
+
+#search-bar:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--vmedio);
+    border: 1px solid var(--vmedio);
+    color: var(--vmedio);
+    font-size: 1.5rem;
+}
+
+#cart {
+    width: 5vh;
+    height: 5vh;
+    background-color: transparent;
+    border: none;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../../../public/img/carrinho.png');
+    margin-right: 1vw;
+}
+
+#liked {
+    width: 5vh;
+    height: 5vh;
+    background-color: transparent;
+    border: none;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../../../public/img/favs.png');
+    margin-right: 1vw;
+}
+
+#user {
+    width: 5vh;
+    height: 5vh;
+    background-color: transparent;
+    border: none;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../../../public/img/user.png');
+    margin-right: 1vw;
 }
