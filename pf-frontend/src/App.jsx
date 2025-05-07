@@ -7,6 +7,7 @@ import Home from './components/home';
 import User from './components/user';
 import Cart from './components/cart';
 import LikesPage from './components/likes'
+import Carrosel from './components/home/carousel';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,6 +15,7 @@ function App() {
   return (
     <>
      <TitleBar />
+     <Carrosel />
      <Routes> 
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
