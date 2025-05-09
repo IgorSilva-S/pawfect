@@ -9,8 +9,9 @@ export default function Footer() {
                 <br />
                 Pawfect é um pet shop apaixonado por animais, oferecendo produtos e serviços de alta qualidade para garantir o bem-estar e felicidade dos pets. Com atendimento personalizado e um cuidado especial, somos a escolha perfeita para mimar seu melhor amigo.
             </div>
+          
             <div className="other-area1" style={{gridArea: "simple-1"}}>
-                <p textStyle="subtitle">Redes Sociais</p>
+                <p class="subtitle-footer">Redes Sociais</p>
                 <div className="sociais">
                     <img className="img-footer" src="../../../public/img/footer/insta.png" alt="Instagram" />
                     <img className="img-footer" src="../../../public/img/footer/facebook.png" alt="facebook" />
@@ -19,14 +20,36 @@ export default function Footer() {
                 </div>
             </div>
             <div className="other-area1"  style={{gridArea: "simple-2"}}>
-                <p textStyle="subtitle">Formas de pagamento</p>
-                <img src="../../../public/img/footer/payments.png" alt="Pagamento" />
+                <p class="subtitle-footer">Formas de pagamento</p>
+                <img id="payments-img" src="../../../public/img/footer/payments.png" alt="Pagamento" />
             </div>
             <div className="other-area2" style={{gridArea: "simple-3"}}>
-                <p textStyle="subtitle">Políticas</p>
+                <p class="subtitle-footer">Políticas</p>
+                <div className="links-footer">
+                    <a href="/footer/aviso-privacidade">
+                        <p>Aviso de privacidade</p>
+                    </a>
+                    <a href="/footer/cookies">
+                        <p>Política de Cookies</p>
+                    </a>
+                    <a href="/footer/entrega-devolucao">
+                        <p>Política de entrega e devolução</p>
+                    </a>
+                    <a href="/footer-poliica-compra">
+                        <p>Política de compra</p>
+                    </a>
+                </div>
             </div>
             <div className="other-area2" style={{gridArea: "simple-4"}}>
-                <p textStyle="subtitle">Atendimento</p> 
+                <p class="subtitle-footer">Atendimento</p> 
+                <div className="links-footer">
+                    <a href="/footer/central">
+                        <p>Central de atendimento</p>
+                    </a>
+                    <a href="/footer-imprensa">
+                        <p>Assessoria de imprensa</p>
+                    </a>
+                </div>
             </div>
         </footer>
     )

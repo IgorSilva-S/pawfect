@@ -9,4 +9,4 @@ export default function Home() {
             <button className="botao-home">Até 3x sem juros!</button> 
         </div>
     )
-}
+}   

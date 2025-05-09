@@ -1,13 +1,20 @@
-#botoes-home{
-
+#botoes-home {
+    margin: 0 auto;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    display: flex; 
+    gap: 1vw; 
 }
 
-.botao-home{
+.botao-home {
     background-color: var(--vclaro2);
-    font-family: BR;
+    font-family: corpo;
+    font-size: 110%;
     border-radius: 0.3vw;
     width: 20vw;
     height: 5vh;
     display: flex;
-    margin: 0 auto;
+    justify-content: center; 
+    align-items: center; 
+    margin: 0; 
 }
