@@ -14,4 +14,12 @@ const loginSchema = z.object({
   password: z.string().min(8).max(100),
 });
 
-module.exports = { registerSchema, loginSchema };
+const updateUserSchema = registerSchema.pick({
+  name: true,
+  password: true,
+  email: true,
+  phone: true,
+  address: true
+}).partial()
+
+module.exports = { registerSchema, loginSchema, updateUserSchema };

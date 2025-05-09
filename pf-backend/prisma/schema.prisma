@@ -31,6 +31,7 @@ model Product {
   prodName     String         @db.VarChar(50)
   prodValue    Decimal        @db.Decimal(8, 2)
   description  String         @db.VarChar(255)
+  imageLink    String         @db.VarChar(255)
   transactions Transactions[]
 }
 
