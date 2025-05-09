@@ -1,0 +1,65 @@
+.carousel {
+    width: 100vw;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.carouselMid {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+}
+
+.carouselLeft {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    position: absolute;
+    left: -60%;
+}
+
+.carouselRight {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    position: absolute;
+    right: -60%;
+}
+
+
+.cControls {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+}
+
+.cControls.prv {
+    left: 16%;
+}
+
+.cControls.nxt {
+    left: 82%;
+}
+
+#carousel1 {
+    background-color: red;
+}
+
+#carousel2 {
+    background-color: orange;
+}
+
+#carousel3 {
+    background-color: yellow;
+}
+
+#carousel4 {
+    background-color: green;
+}
+
+#carousel5 {
+    background-color: blue;
+}
