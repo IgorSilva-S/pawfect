@@ -19,3 +19,10 @@
   border: none;
   color: var(--vescuro);
 }
+
+.botao-home:hover {
+  outline: none;
+  border: 2px solid var(--vmedio);
+  color: var(--vescuro);
+  cursor: pointer;
+}

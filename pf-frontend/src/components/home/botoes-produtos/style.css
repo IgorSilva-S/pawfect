@@ -1,0 +1,35 @@
+#botoes-produtos{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.botao-produto{
+  width: 13vw;
+  align-items: center;
+  border-radius: 5px;
+  background-color: var(--vclaro2);
+  border-style: none;
+  border-radius: 2vw;
+  margin: 1.8vw;
+}
+
+.botao-produto img{
+  width: 10vw;
+}
+
+.botao-produto:hover{
+  outline: none;
+  border: 2px solid var(--vmedio);
+  color: var(--vescuro);
+  cursor: pointer;
+} 
+
+.texto-bp{
+  font-size: 1.2vw;
+  color: var(--vescuro);
+  font-family: corpo;
+  text-align: center;
+  margin-top: -1.4vw;
+  margin-bottom: 5vh;
+}
