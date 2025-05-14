@@ -37,21 +37,24 @@
     background-color: var(--vclaro1);
     border-radius: 15px;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin-bottom: 1.4vh;
     margin-right: 2vw;
     background-image: url('../../../public/img/menu/lupa.png'); 
     background-repeat: no-repeat;
     background-position: left 0.5vw center; 
     background-size: 3vh 3vh; 
+    text-indent: 2.4vw;
+    font-family: corpo;
+    color: var(--vescuro);
+    padding-right: 0.6vw;
 }
 
 #search-bar:focus {
     outline: none;
-    box-shadow: 0 0 5px var(--vmedio);
-    border: 1px solid var(--vmedio);
-    color: var(--vmedio);
-    font-size: 1.5rem;
+    border: 2px solid var(--vmedio);
+    color: var(--vescuro);
+    font-size: 1rem;
 }
 
 #cart {

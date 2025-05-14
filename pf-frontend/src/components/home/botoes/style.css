@@ -1,0 +1,21 @@
+#botoes-home {
+  margin: 0 auto;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  display: flex; 
+  gap: 1vw; 
+  justify-content: center;
+}
+
+.botao-home {
+  background-color: var(--vclaro2);
+  font-family: corpo;
+  font-size: 110%;
+  border-radius: 0.5vw;
+  width: 20vw;
+  height: 5vh;
+  align-items: center; 
+  margin: 0; 
+  border: none;
+  color: var(--vescuro);
+}
