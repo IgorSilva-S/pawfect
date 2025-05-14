@@ -3,6 +3,7 @@ import "./style.css";
 import Botoes from "../home/botoes";
 import BotoesProdutos from "../home/botoes-produtos";
 import Fidelidade from "../home/plano-fidelidade";
+import Blog from "../home/blog";
 
 export default function Home() {
     return (
@@ -10,6 +11,7 @@ export default function Home() {
                 <Botoes />
                 <BotoesProdutos />
                 <Fidelidade />
+                <Blog />
             </>
     )
 }      
