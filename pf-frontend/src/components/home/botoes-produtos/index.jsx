@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 
-export default function Home() {
+export default function BotoesProdutos() {
     return (
         <div>
             <div id="botoes-produtos">
