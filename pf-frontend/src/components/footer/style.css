@@ -26,6 +26,7 @@ footer {
     grid-area: big-area;
     box-sizing: border-box;
     padding: 25px;
+    padding-top: 3vh;
     background-color: var(--vclaro1);
 }
 
@@ -47,14 +48,14 @@ footer {
 
 #title-footer{
     font-size: 4vh;
-    margin-bottom: -2vh;
+    margin-bottom: -1vh;
     margin-top: 1vh;
 }
 
 .subtitle-footer{
     font-size: 3vh;
 }
-
+ 
 .img-footer {
     width: 2.5vw;
     height: 2.5vw;
@@ -79,4 +80,9 @@ footer {
 
 .links-footer a{
     color: var(--vescuro);
+    text-decoration: none;
+}
+
+.links-footer a:hover{
+    text-decoration: underline;
 }
