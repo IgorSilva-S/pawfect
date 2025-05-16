@@ -7,10 +7,15 @@
     position: relative;
 }
 
+[carouselBanner] {
+    transition-duration: .3s;
+}
+
 .carouselMid {
     width: 70%;
     height: 80%;
     border-radius: 26px;
+    animation: appearCarousel .3s;
 }
 
 .carouselLeft {
@@ -19,6 +24,7 @@
     border-radius: 26px;
     position: absolute;
     left: -60%;
+    animation: appearCarousel .3s;
 }
 
 .carouselRight {
@@ -27,8 +33,18 @@
     border-radius: 26px;
     position: absolute;
     right: -60%;
+    animation: appearCarousel .3s;
 }
 
+@keyframes appearCarousel {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
 
 .cControls {
     position: absolute;
@@ -45,21 +61,31 @@
 }
 
 #carousel1 {
-    background-color: red;
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/banner1.png');
 }
 
 #carousel2 {
-    background-color: orange;
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/banner2.png');
 }
 
 #carousel3 {
-    background-color: yellow;
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/banner3.png');
 }
 
 #carousel4 {
-    background-color: green;
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/placeholder.png');
 }
 
 #carousel5 {
-    background-color: blue;
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/placeholder.png');
 }

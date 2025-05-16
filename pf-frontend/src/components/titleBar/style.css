@@ -21,7 +21,7 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    background-image: url('../../../public/img/logo.png');
+    background-image: url('/img/logo.png');
     left: 15%;
 }
 
