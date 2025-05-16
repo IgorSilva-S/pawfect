@@ -2,8 +2,8 @@
   margin: 0 auto;
   margin-top: 10vh;
   margin-bottom: 10vh;
-  display: flex; 
-  gap: 1vw; 
+  display: flex;
+  gap: 1vw;
   justify-content: center;
 }
 
@@ -14,10 +14,13 @@
   border-radius: 0.5vw;
   width: 20vw;
   height: 5vh;
-  align-items: center; 
-  margin: 0; 
+  align-items: center;
+  margin: 0;
   border: none;
   color: var(--vescuro);
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  transition-duration: .1s;
 }
 
 .botao-home:hover {
