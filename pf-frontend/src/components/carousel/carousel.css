@@ -1,0 +1,91 @@
+.carousel {
+    width: 100vw;
+    height: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+[carouselBanner] {
+    transition-duration: .3s;
+}
+
+.carouselMid {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    animation: appearCarousel .3s;
+}
+
+.carouselLeft {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    position: absolute;
+    left: -60%;
+    animation: appearCarousel .3s;
+}
+
+.carouselRight {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    position: absolute;
+    right: -60%;
+    animation: appearCarousel .3s;
+}
+
+@keyframes appearCarousel {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.cControls {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+}
+
+.cControls.prv {
+    left: 16%;
+}
+
+.cControls.nxt {
+    left: 82%;
+}
+
+#carousel1 {
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/banner1.png');
+}
+
+#carousel2 {
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/banner2.png');
+}
+
+#carousel3 {
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/banner3.png');
+}
+
+#carousel4 {
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/placeholder.png');
+}
+
+#carousel5 {
+    background-position: center;
+    background-size: cover;
+    background-image: url('/img/banners-carrossel/placeholder.png');
+}
