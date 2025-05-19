@@ -76,8 +76,8 @@ export default function Carousel() {
             <div id="carousel4" carouselBanner='true'></div>
             <div id="carousel5" carouselBanner='true'></div>
 
-            <button className="cControls nxt" onClick={nextCarousel}>NTX</button>
-            <button className="cControls prv" onClick={backCarousel}>PRV</button>
+            <button className="cControls nxt" onClick={nextCarousel}><img src="../../../../public/img/banners-carrossel/setanxt.png" alt="seta" /></button>
+            <button className="cControls prv" onClick={backCarousel}><img src="../../../../public/img/banners-carrossel/setaprv.png" alt="seta" /></button>
         </div>
     )
 }
