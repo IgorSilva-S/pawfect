@@ -64,11 +64,6 @@
   margin-top: -2.6vh;
 }
 
-.ler-mais-t:hover{
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .ler-mais{
   display: flex;
   margin-bottom: 1.5vh;

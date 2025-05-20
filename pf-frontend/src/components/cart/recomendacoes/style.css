@@ -1,0 +1,29 @@
+#container-recomendacoes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
+  margin-bottom: 5vh;
+}
+
+/* tirar dps, so pra poder cnfigurar */
+#recomendacoes img {
+  width: 2vw;
+}
+
+#title-recomendacoes{
+  font-family: corpo;
+  font-size: 1.7vw;
+  color: var(--vescuro);
+  margin-bottom: 5vh;
+  margin-top: -15vh;
+  margin-left: 5vw;
+}
+
+.recomendacao{
+  display: flex;
+  width: 20vw;
+  height: 30vh;
+  border-radius: 0.6vw;
+  background-color: var(--vclaro2);
+}
