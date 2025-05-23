@@ -8,7 +8,8 @@ const cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const productRouter = require("./routes/products.js")
+const productRouter = require("./routes/products")
+const transactionRouter = require("./routes/transactions");
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/product", productRouter)
+app.use("/api/transaction", transactionRouter);
 
 module.exports = app;
