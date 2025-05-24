@@ -25,7 +25,7 @@ router.post('/new', async (req, res) => {
     }
 })
 
-router.put("/editProd/:id", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { prodName, prodValue, description, imageLink } = req.body;
@@ -53,10 +53,9 @@ router.put("/editProd/:id", async (req, res) => {
     }
 });
 
-router.delete("/delProd/:id", async (req, res) => {
+router.delete("/del/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(Number(id))
         let prod
 
         try {
@@ -123,4 +122,11 @@ router.get("/list/:id", async (req, res) => {
     }
 })
 
+router.get("/endP", (req, res) => {
+  try {
+    return res.status(200).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Working" })
+  } catch (err) {
+    return res.status(400).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Not working", Error: err.message })
+  }
+})
 module.exports = router;

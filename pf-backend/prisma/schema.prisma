@@ -36,11 +36,12 @@ model Product {
 }
 
 model Transactions {
-  id        Int      @id @default(autoincrement())
-  prodId    Int
-  userId    Int
-  qnt       Int
-  transDate DateTime @default(now())
-  user      User     @relation(fields: [userId], references: [id])
-  product   Product  @relation(fields: [prodId], references: [id])
+  id         Int      @id @default(autoincrement())
+  prodId     Int
+  userId     Int
+  qnt        Int
+  geralValue Decimal  @db.Decimal(8, 2)
+  transDate  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  product    Product  @relation(fields: [prodId], references: [id])
 }
