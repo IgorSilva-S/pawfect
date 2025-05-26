@@ -12,15 +12,30 @@
   background-color: var(--vclaro2);
   font-family: corpo;
   font-size: 150%;
+  text-decoration: underline;
   border-radius: 0.5vw;
   width: 22.5vw;
   height: 7vh;
   align-items: center;
-  border: none;
+  border: none; 
   color: var(--vescuro);
   border: 2px solid transparent;
   box-sizing: border-box;
   transition-duration: .1s;
+}
+
+.div-home {
+  background-color: var(--vclaro2);
+  font-family: corpo;
+  font-size: 150%;
+  border-radius: 0.5vw;
+  width: 22.5vw;
+  height: 7vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  color: var(--vescuro);
+  box-sizing: border-box;
 }
 
 .botao-home:hover {

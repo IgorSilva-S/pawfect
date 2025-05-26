@@ -1,6 +1,6 @@
 .carousel {
     width: 100vw;
-    height: 650px;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,15 +57,15 @@
 }
 
 .cControls img{
-    width: 2vw;
+    width: 1.5vw;
 }
 
 .cControls.prv {
-    left: 15%;
+    left: 14.4%;
 }
 
 .cControls.nxt {
-    left: 82%;
+    left: 82.6%;
 }
 
 #carousel1 {
