@@ -8,14 +8,16 @@ const prisma = new PrismaClient();
 
 router.post('/new', async (req, res) => {
     try {
-        const { prodName, prodValue, description, imageLink } = newProdSchema.parse(req.body)
+        const { prodName, prodValue, avaliation, imageLink, category, subCategory } = newProdSchema.parse(req.body)
 
         const newProduct = await prisma.product.create({
             data: {
                 prodName,
                 prodValue,
-                description,
-                imageLink
+                avaliation,
+                imageLink,
+                category,
+                subCategory,
             }
         })
 
@@ -28,7 +30,7 @@ router.post('/new', async (req, res) => {
 router.put("/edit/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const { prodName, prodValue, description, imageLink } = req.body;
+        const { prodName, prodValue, avaliation, imageLink, category, subCategory } = req.body;
 
         // Ensure ID is converted to number if stored as integer
         const product = await prisma.product.findUnique({ where: { id: Number(id) } });
@@ -42,8 +44,10 @@ router.put("/edit/:id", async (req, res) => {
             data: {
                 prodName,
                 prodValue,
-                description,
-                imageLink
+                avaliation,
+                imageLink,
+                category,
+                subCategory
             }
         });
 

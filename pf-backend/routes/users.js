@@ -4,6 +4,7 @@ const router = express.Router();
 const { registerSchema, loginSchema, updateUserSchema } = require("../schemas/user");
 const { hashPassword, comparePassword } = require("../utils/bcrypt");
 const { generateToken } = require("../utils/jwt");
+const { verifyToken } = require("../utils/jwt")
 const { authenticateToken } = require("../middlewares/auth");
 
 const { PrismaClient } = require("@prisma/client");
@@ -13,10 +14,10 @@ const prisma = new PrismaClient();
 router.post("/new", async (req, res) => {
   try {
     // Getting user info
-    const { name, username, email, password, phone, address } = registerSchema.parse(req.body);
+    const { name, email, password, phone, address } = registerSchema.parse(req.body);
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({ where: { username } });
+    const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
@@ -28,7 +29,6 @@ router.post("/new", async (req, res) => {
     const newUser = await prisma.user.create({
       data: {
         name,
-        username,
         email,
         password: hashedPassword,
         phone,
@@ -49,22 +49,22 @@ router.post("/new", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     // Getting username and password
-    const { username, password } = loginSchema.parse(req.body);
+    const { email, password } = loginSchema.parse(req.body);
 
     // Find user
-    const user = await prisma.user.findUnique({ where: { username } });
+    const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      return res.status(401).json({ message: "Invalid username" });
+      return res.status(401).json({ message: "Invalid user" });
     }
 
     // Compare password
     const isPasswordValid = await comparePassword(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid password" });
+      return res.status(401).json({ message: "Invalid user" });
     }
 
     // Generate token
-    const token = generateToken({ id: user.id, username: user.username });
+    const token = generateToken({ id: user.id, email: user.email, name: user.name });
 
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
@@ -74,7 +74,7 @@ router.post("/login", async (req, res) => {
 
 // User profile
 router.get("/profile", authenticateToken, async (req, res) => {
-  res.status(200).json({ message: "User profile", user: req.user });
+  res.status(200).json({ message: "User profile", user: req.user});
 });
 
 // Editing user
@@ -88,9 +88,9 @@ router.put("/edit/:un", async (req, res) => {
 
     // Check if user exists
     try {
-      existingUser = await prisma.user.findUnique({ where: { username: un } });
+      existingUser = await prisma.user.findUnique({ where: { email: un } });
     } catch {
-      return res.status(400).json({ message: 'Insert username!' })
+      return res.status(400).json({ message: 'Insert email!' })
     }
 
     if (existingUser) {
@@ -105,7 +105,7 @@ router.put("/edit/:un", async (req, res) => {
 
       // Edit user
       const editUser = await prisma.user.update({
-        where: { username: un },
+        where: { email: un },
         data: {
           name,
           email,
@@ -134,14 +134,14 @@ router.delete("/del/:un", async (req, res) => {
     const { un } = req.params;
     let user
     try {
-      user = await prisma.user.findUnique({ where: { username: un } })
+      user = await prisma.user.findUnique({ where: { email: un } })
     } catch (err) {
-      return res.status(400).json({ message: 'Insert username!', cError: err })
+      return res.status(400).json({ message: 'Insert email!', cError: err })
     }
 
     if (user) {
       // Get the user from database and delete
-      await prisma.user.delete({ where: { username: un } })
+      await prisma.user.delete({ where: { email: un } })
 
       return res.status(200).json({
         success: true,
@@ -160,6 +160,9 @@ router.delete("/del/:un", async (req, res) => {
 router.get("/list/all", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
+    users.forEach((user) => {
+      delete user.password
+    })
     return res.status(200).json({
       success: true,
       status: 200,
@@ -172,31 +175,44 @@ router.get("/list/all", async (req, res) => {
 
 })
 
-router.get("/list/:username", async (req, res) => {
+router.get("/list/:email", async (req, res) => {
   try {
-    const { username } = req.params
+    const { email } = req.params
     let user
     try {
-      user = await prisma.user.findUnique({ where: { username } })
+      user = await prisma.user.findUnique({ where: { email } })
     } catch {
-      return res.status(400).json({ message: 'Insert username!' })
+      return res.status(400).json({ message: 'Insert email!' })
     }
 
     if (user) {
+      delete user.password
       return res.status(200).json({
         success: true,
         status: 200,
-        message: `Get specific user: ${username}`,
+        message: `Get specific user: ${user.name}`,
         data: { user }
       })
     } else {
-      return res.status(404).json({ message: `Can't found ${username}` })
+      return res.status(404).json({ message: `Can't found ${email}` })
     }
 
   } catch (err) {
     return res.status(400).json({ message: err })
   }
 })
+
+// router.get("/whoami", async (req, res) => {
+//   const { token } = req.body
+
+//   try {
+//       const user = verifyToken(token)
+
+//       return res.status(200).json({ you_are: user.})
+//   } catch {
+
+//   }
+// })
 
 router.get("/endP", (req, res) => {
   try {

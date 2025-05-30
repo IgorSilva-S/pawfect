@@ -146,7 +146,8 @@ router.get("/fullTransaction/:id", async (req, res) => {
     userEmail: user.email,
     userAddress: user.address,
     product: product.prodName,
-    productDescripton: product.description,
+    productCategory: product.category,
+    productAvaliation: product.avaliation,
     singleValue: product.prodValue,
     quantity: transaction.qnt,
     transactionValue: transaction.geralValue
