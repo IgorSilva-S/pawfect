@@ -27,7 +27,7 @@
 }
 
 body {
-  background-color: var(--vclaro1);
+  background-image: url(img/fundo.png);
   overflow-x: hidden;
 }
 

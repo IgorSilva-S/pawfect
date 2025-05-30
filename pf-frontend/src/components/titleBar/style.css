@@ -39,7 +39,7 @@
     background-color: var(--vclaro1);
     border-radius: 15px;
     border: none;
-    font-size: 1rem;
+    font-size: 5rem;
     margin-bottom: 1.4vh;
     margin-right: 2vw;
     background-image: url('../../../public/img/menu/lupa.png'); 
@@ -47,7 +47,7 @@
     background-position: left 0.5vw center; 
     background-size: 3vh 3vh; 
     box-sizing: border-box;
-    padding-left: 50px;
+    padding-left: 0.1vw;
     text-indent: 2.4vw;
     font-family: corpo;
     color: var(--vescuro);
