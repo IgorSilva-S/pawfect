@@ -1,5 +1,4 @@
 import React from "react";
-import "./style.css";
 import Vazio from "../cart/vazioo";
 import Cheio from "../cart/cheio";
 
@@ -7,7 +6,7 @@ export default function Cart() {
     return (
         <div className="cart">
             <>
-                <Vazio />
+                <Cheio />
             </>
         </div>
     );

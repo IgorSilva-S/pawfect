@@ -1,115 +1,171 @@
 import { useState } from "react";
-import { ChevronUp, ChevronDown, Trash2 } from "lucide-react";
+import "./style.css";
 
 export default function Carrinho() {
   const [expandido, setExpandido] = useState(true);
 
-  const toggleExpandido = () => {
-    setExpandido(!expandido);
-  };
+  const produtosIniciais = [
+    {
+      id: 1,
+      nome: "Med Snack - Petisco para Medicamentos",
+      preco: 29.99,
+      imagem: "/img/cart/recomendacoes-img/medsnack.png",
+      vendedor: "Pawfect",
+      quantidade: 1,
+    },
+    {
+      id: 2,
+      nome: "Petisco sabor Frango",
+      preco: 29.99,
+      imagem: "/img/cart/recomendacoes-img/medsnack.png",
+      vendedor: "Pawfect",
+      quantidade: 1,
+    },
+  ];
 
-  const produto = {
-    nome: "Med Snack - Petisco para Medicamentos",
-    preco: 29.99,
-    imagem: "../../../../public/img/cart/recomendacoes-img/medsnack.png",
-    vendedor: "Pawfect",
-  };
+  const [produtos, setProdutos] = useState(produtosIniciais);
 
-  const quantidade = 2;
-  const total = produto.preco * quantidade;
+  function alterarQuantidade(id, delta) {
+    setProdutos((produtosAtuais) =>
+      produtosAtuais.map((p) =>
+        p.id === id
+          ? { ...p, quantidade: Math.max(1, p.quantidade + delta) }
+          : p
+      )
+    );
+  }
+
+  const totalGeral = produtos.reduce(
+    (acc, produto) => acc + produto.preco * produto.quantidade,
+    0
+  );
 
   return (
-    <div className="bg-green-50 min-h-screen flex flex-col items-center justify-center p-6">
-      <h1 className="text-2xl font-semibold mb-6">Meu carrinho</h1>
+    <div className="carrinho">
+      <p className="titulo">Meu carrinho</p>
 
-      <div className="flex w-full max-w-4xl gap-4">
-        {/* Coluna esquerda: Itens */}
-        <div className="flex-1 bg-green-100 rounded-lg p-4">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="font-semibold">Pawfect ({quantidade} itens)</h2>
-            <button onClick={toggleExpandido}>
-              {expandido ? <ChevronUp /> : <ChevronDown />}
+      <div className={`conteudo ${!expandido ? "miniatura" : ""}`}>
+        <div className="itens">
+          <div className="topo">
+            <p>
+              Pawfect (
+              {produtos.reduce((acc, p) => acc + p.quantidade, 0)} itens)
+            </p>
+            <button onClick={() => setExpandido(!expandido)}>
+              <img
+                className="seta-cart"
+                src={
+                  expandido
+                    ? "/img/cart/seta-cima.png"
+                    : "/img/cart/seta-baixo.png"
+                }
+                alt="Abrir ou fechar"
+              />
             </button>
           </div>
 
           {expandido ? (
-            <div className="space-y-4">
-              {[...Array(quantidade)].map((_, idx) => (
+            <div>
+              {produtos.map((produto, index) => (
                 <div
-                  key={idx}
-                  className="flex items-center justify-between border-b pb-4"
+                  key={produto.id}
+                  className={`item ${
+                    index === produtos.length - 1 ? "sem-linha" : ""
+                  }`}
                 >
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={produto.imagem}
-                      alt="Produto"
-                      className="w-20 h-auto"
-                    />
-                    <div>
-                      <p className="font-semibold">{produto.nome}</p>
-                      <p className="text-sm text-gray-600">
-                        Vendido por {produto.vendedor}
-                      </p>
-                    </div>
+                  <img src={produto.imagem} alt="Produto" className="foto" />
+
+                  <div className="info">
+                    <p>{produto.nome}</p>
+                    <small>Vendido por {produto.vendedor}</small>
                   </div>
 
-                  <div className="flex items-center gap-4">
-                    <div className="border px-2 rounded">- 1 +</div>
-                    <p className="font-semibold">R$ {produto.preco.toFixed(2)}</p>
-                    <Trash2 className="cursor-pointer text-red-500" />
+                  <div className="acoes">
+                    <div className="quantidade">
+                      <button onClick={() => alterarQuantidade(produto.id, -1)}>
+                        -
+                      </button>
+                      <span className="quantidade-n">{produto.quantidade}</span>
+                      <button onClick={() => alterarQuantidade(produto.id, 1)}>
+                        +
+                      </button>
+                    </div>
+                    <p className="preco-q">
+                      R$ {(produto.preco * produto.quantidade).toFixed(2)}
+                    </p>
+                    <img
+                      className="lixeira-cart"
+                      src="/img/cart/lixeira.png"
+                      alt="Remover"
+                    />
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              {[...Array(quantidade)].map((_, idx) => (
-                <img
-                  key={idx}
-                  src={produto.imagem}
-                  alt="Produto"
-                  className="w-12 h-auto"
-                />
-              ))}
-              <span className="ml-auto font-semibold">R$ {total.toFixed(2)}</span>
+            <div className="miniaturas">
+              {(() => {
+                const imagensExpandida = produtos.flatMap((produto) =>
+                  Array(produto.quantidade).fill(produto.imagem)
+                );
+                const imagensLimitadas = imagensExpandida.slice(0, 18);
+                const temMais = imagensExpandida.length > 18;
+
+                return (
+                  <>
+                    {imagensLimitadas.map((src, i) => (
+                      <img key={i} src={src} alt="Produto" className="mini" />
+                    ))}
+                    {temMais && <div className="mais-itens">...</div>}
+                    <span>R$ {totalGeral.toFixed(2)}</span>
+                  </>
+                );
+              })()}
             </div>
           )}
         </div>
 
-        {/* Coluna direita: Resumo do pedido */}
-        <div className="w-64 bg-green-100 rounded-lg p-4">
-          <h2 className="font-semibold mb-2">Resumo do pedido</h2>
-          <div className="text-sm space-y-1">
-            <div className="flex justify-between">
-              <span>Produtos ({quantidade} itens)</span>
-              <span>R$ {total.toFixed(2)}</span>
+        <div className="resumo">
+          <h2>Resumo do pedido</h2>
+
+          <div className="linhas">
+            <div>
+              <span>
+                Produtos ({produtos.reduce((acc, p) => acc + p.quantidade, 0)})
+              </span>
+              <span>R$ {totalGeral.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between">
+            <div>
               <span>Descontos</span>
               <span>R$ 0,00</span>
             </div>
-            <div className="flex justify-between">
+            <div>
               <span>Subtotal</span>
-              <span>R$ {total.toFixed(2)}</span>
+              <span>R$ {totalGeral.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between mb-2">
+            <div>
               <span>Frete</span>
               <span>R$ 0,00</span>
             </div>
-            <div className="flex justify-between font-semibold border-t pt-2">
+            <div className="total">
               <span>Total:</span>
-              <span>R$ {total.toFixed(2)}</span>
+              <span>R$ {totalGeral.toFixed(2)}</span>
             </div>
           </div>
 
-          <button className="w-full mt-4 bg-green-300 py-2 rounded font-semibold">
-            Comprar
-          </button>
-          <button className="w-full mt-2 bg-green-200 py-2 rounded text-sm">
-            Escolher mais produtos
-          </button>
+          {expandido && (
+            <>
+              <button className="comprar-btn">
+                <p>Comprar</p>
+              </button>
+              <button className="btn">
+                <p>Continuar comprando</p>
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>
   );
 }
+
