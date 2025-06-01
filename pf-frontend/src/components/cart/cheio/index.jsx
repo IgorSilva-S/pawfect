@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./style.css";
+import { Link } from 'react-router-dom';
 
 export default function Carrinho() {
   const [expandido, setExpandido] = useState(true);
@@ -13,7 +14,7 @@ export default function Carrinho() {
       vendedor: "Pawfect",
       quantidade: 1,
     },
-    {
+    { 
       id: 2,
       nome: "Petisco sabor Frango",
       preco: 29.99,
@@ -155,12 +156,13 @@ export default function Carrinho() {
 
           {expandido && (
             <>
-              <button className="comprar-btn">
-                <p>Comprar</p>
-              </button>
-              <button className="btn">
-                <p>Continuar comprando</p>
-              </button>
+             <Link to="#" className="comprar-btn">
+              <p>Comprar</p>
+             </Link>
+
+            <Link to="/" className="btn">
+              <p>Continuar comprando</p>
+            </Link>
             </>
           )}
         </div>

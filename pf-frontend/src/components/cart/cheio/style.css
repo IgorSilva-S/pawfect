@@ -222,7 +222,7 @@
 }
 
 .btn {
-  width: 100%;
+  width: 94%;
   background-color: var(--vclaro2);
   padding: 0.5rem;
   border: none;
@@ -243,7 +243,7 @@
 
 .comprar-btn {
   font-size: 1.2vw;
-  width: 100%;
+  width: 93%;
   background-color: var(--vclaro2);
   padding: 0.5rem;
   border: none;
