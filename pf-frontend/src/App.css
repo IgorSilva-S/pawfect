@@ -28,6 +28,7 @@
 
 body {
   background-color: var(--vclaro1);
+  background-image: url(../public/images/fundo.png);
 }
 
 section {
