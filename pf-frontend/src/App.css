@@ -27,8 +27,7 @@
 }
 
 body {
-  background-image: url(img/fundo.png);
-  overflow-x: hidden;
+  background-color: var(--vclaro1);
 }
 
 section {
