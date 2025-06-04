@@ -139,6 +139,56 @@ router.get("/list/:id", async (req, res) => {
     }
 })
 
+router.get("/list/force/all", async (req, res) => {
+    try {
+        let products = await prisma.product.findMany()
+
+        return res.status(200).json({
+            success: true,
+            status: 200,
+            message: 'Products listed - Forced.',
+            data: { products },
+        });
+    } catch (err) {
+        return res.status(400).json({ message: err.message })
+    }
+})
+
+router.get("/list/force/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        let product
+        try {
+            product = await prisma.product.findUnique({ where: { id: Number(id) } })
+        } catch (err) {
+            return res.status(404).json({ message: "Product Not Found", cError: err.message })
+        }
+
+        if (product) {
+            if (product.deleted) {
+                return res.status(200).json({
+                    success: true,
+                    status: 200,
+                    message: 'Product listed.',
+                    warning: 'This product is soft-deleted',
+                    data: { product },
+                });
+            } else {
+                return res.status(200).json({
+                    success: true,
+                    status: 200,
+                    message: 'Product listed.',
+                    data: { product },
+                });
+            }
+        } else {
+            return res.status(404).json({ message: "Product Not Found" })
+        }
+    } catch (err) {
+        return res.status(400).json({ message: err.message })
+    }
+})
+
 router.get("/endP", (req, res) => {
     try {
         return res.status(200).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Working" })
