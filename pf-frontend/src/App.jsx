@@ -7,6 +7,8 @@ import Home from './components/home';
 import User from './components/user';
 import Cart from './components/cart';
 import LikesPage from './components/likes'
+import Perfil from "./components/user/perfil";
+import Cadastro from "./components/user/cadastro";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +21,8 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/liked" element={<LikesPage />} />
         <Route path="/user" element={<User />} />
+        <Route path="perfil" element={<Perfil />} />
+        <Route path="cadastro" element={<Cadastro />} />
       </Routes>
     <Footer />
     </>

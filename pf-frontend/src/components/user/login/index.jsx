@@ -1,36 +1,39 @@
-import React, { useState } from 'react';
-import Cadastro from '../cadastro';
-import './style.css';
+import { useState } from 'react';
+import './style.css'; 
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const [pagina, setPagina] = useState('login');
   const [form, setForm] = useState({ email: '', senha: '' });
   const [erro, setErro] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!form.email || !form.senha) {
-      setErro('Preencha todos os campos.');
+      setErro('Por favor, preencha todos os campos.');
+      return;
+    }
+
+    // Só simulando -- linkar com o back dps
+    if (form.email !== 'usuario@exemplo.com' || form.senha !== '123456') {
+      setErro('E-mail ou senha incorretos.');
       return;
     }
 
     setErro('');
-    setPagina('dashboard');
-  };
-
-  if (pagina === 'user/cadastro') return <Cadastro />;
-  if (pagina === 'dashboard') return <div>✅ Bem-vindo ao Dashboard!</div>;
+    console.log('Login bem-sucedido!');
+    navigate('/perfil');
+    };
 
   return (
     <div className="login-container">
-      <p className="login-message">Insira seu e-mail e senha:</p>
-
+      <p className="login-title">Insira um e-mail e uma senha!</p>
       <form className="login-form" onSubmit={handleSubmit}>
         <label className="login-label">
           E-mail:
@@ -56,18 +59,14 @@ export default function Login() {
 
         {erro && <p className="login-error">{erro}</p>}
 
-        <button className="login-button" type="submit">Login</button>
-      </form>
+        <button className="login-button" type="submit">
+          Login
+        </button>
 
-      <button
-        className="login-link"
-        type="button"
-        onClick={() => setPagina('user/cadastro')}
-      >
-        Não tem uma conta? Cadastre-se!
-      </button>
+        <a className="login-link" onClick={() => navigate('/cadastro')}>
+          Não tem conta? Cadastre-se
+        </a>
+      </form>
     </div>
   );
 }
-
-
