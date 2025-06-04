@@ -18,28 +18,48 @@ router.post("/new", async (req, res) => {
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) {
+    if (existingUser && existingUser.deleted == false) {
       return res.status(400).json({ message: "User already exists" });
     }
 
     // Hash password
     const hashedPassword = await hashPassword(password);
 
-    // Create user
-    const newUser = await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        phone,
-        address
-      },
-    });
+    if (existingUser && existingUser.deleted == true) {
+      // Update old user with data
+      const fNewUser = await prisma.user.update({
+        where: { email: existingUser.email },
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+          phone,
+          address,
+          deleted: false
+        }
+      })
 
-    // Remove password before sending response
-    delete newUser.password;
+      // Remove password before sending response
+      delete fNewUser.password;
 
-    res.status(201).json({ message: "User created", user: newUser });
+      res.status(201).json({ message: "User created", user: fNewUser });
+    } else {
+      // Create user
+      const newUser = await prisma.user.create({
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+          phone,
+          address
+        },
+      });
+
+      // Remove password before sending response
+      delete newUser.password;
+
+      res.status(201).json({ message: "User created", user: newUser });
+    }
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -74,7 +94,7 @@ router.post("/login", async (req, res) => {
 
 // User profile
 router.get("/profile", authenticateToken, async (req, res) => {
-  res.status(200).json({ message: "User profile", user: req.user});
+  res.status(200).json({ message: "User profile", user: req.user });
 });
 
 // Editing user
@@ -141,7 +161,12 @@ router.delete("/del/:un", async (req, res) => {
 
     if (user) {
       // Get the user from database and delete
-      await prisma.user.delete({ where: { email: un } })
+      await prisma.user.update({
+        where: { email: un },
+        data: {
+          deleted: true
+        }
+      })
 
       return res.status(200).json({
         success: true,
@@ -159,9 +184,16 @@ router.delete("/del/:un", async (req, res) => {
 
 router.get("/list/all", async (req, res) => {
   try {
-    const users = await prisma.user.findMany();
+    let users = await prisma.user.findMany();
     users.forEach((user) => {
       delete user.password
+
+      if (user.deleted == true) {
+        let userPart = users.indexOf(user)
+        if (userPart > -1) {
+          users.splice(userPart, 1)
+        }
+      }
     })
     return res.status(200).json({
       success: true,
@@ -185,7 +217,7 @@ router.get("/list/:email", async (req, res) => {
       return res.status(400).json({ message: 'Insert email!' })
     }
 
-    if (user) {
+    if (user && user.deleted == false) {
       delete user.password
       return res.status(200).json({
         success: true,
@@ -202,6 +234,7 @@ router.get("/list/:email", async (req, res) => {
   }
 })
 
+
 // router.get("/whoami", async (req, res) => {
 //   const { token } = req.body
 
@@ -213,6 +246,60 @@ router.get("/list/:email", async (req, res) => {
 
 //   }
 // })
+
+router.get('/list/force/all', async (req, res) => {
+  try {
+    let users = await prisma.user.findMany();
+    users.forEach((user) => {
+      delete user.password
+    })
+    return res.status(200).json({
+      success: true,
+      status: 200,
+      message: 'Users listed.',
+      data: { users },
+    });
+  } catch (error) {
+    return res.status(400).json({ message: error });
+  }
+})
+
+router.get('/list/force/:email', async (req, res) => {
+  try {
+    const { email } = req.params
+    let user
+    try {
+      user = await prisma.user.findUnique({ where: { email } })
+    } catch {
+      return res.status(400).json({ message: 'Insert email!' })
+    }
+
+    if (user) {
+      delete user.password
+      if (!user.deleted) {
+        return res.status(200).json({
+          success: true,
+          status: 200,
+          message: `Get specific user: ${user.name}`,
+          data: { user }
+        })
+      } else {
+        return res.status(202).json({
+          success: true,
+          status: 200,
+          message: `Get specific user: ${user.name}`,
+          warning: 'This user is soft-deleted',
+          data: { user }
+        })
+      }
+    } else {
+      return res.status(404).json({ message: `Can't found ${email}` })
+    }
+
+  } catch (err) {
+    return res.status(400).json({ message: err })
+  }
+})
 
 router.get("/endP", (req, res) => {
   try {

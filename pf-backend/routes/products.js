@@ -70,7 +70,12 @@ router.delete("/del/:id", async (req, res) => {
 
         if (prod) {
 
-            await prisma.product.delete({ where: { id: Number(id) } })
+            await prisma.product.update({
+                where: { id: Number(id) },
+                data: {
+                    deleted: true
+                }
+            })
 
             return res.status(200).json({
                 success: true,
@@ -89,7 +94,15 @@ router.delete("/del/:id", async (req, res) => {
 
 router.get("/list/all", async (req, res) => {
     try {
-        const products = await prisma.product.findMany()
+        let products = await prisma.product.findMany()
+        products.forEach((product) => {
+            if (product.deleted) {
+                let index = products.indexOf(product)
+                if (index > -1) {
+                    products.splice(index, 1)
+                }
+            }
+        })
         return res.status(200).json({
             success: true,
             status: 200,
@@ -106,20 +119,20 @@ router.get("/list/:id", async (req, res) => {
         const { id } = req.params
         let product
         try {
-            product = await prisma.product.findUnique({ where: { id : Number(id)} })
+            product = await prisma.product.findUnique({ where: { id: Number(id) } })
         } catch (err) {
-            return res.status(404).json({ message: "Product Not Found", cError: err.message})
+            return res.status(404).json({ message: "Product Not Found", cError: err.message })
         }
 
-        if (product) {
-                    return res.status(200).json({
-            success: true,
-            status: 200,
-            message: 'Product listed.',
-            data: { product },
-        });
+        if (product && !product.deleted) {
+            return res.status(200).json({
+                success: true,
+                status: 200,
+                message: 'Product listed.',
+                data: { product },
+            });
         } else {
-            return res.status(404).json({ message: "Product Not Found"})
+            return res.status(404).json({ message: "Product Not Found" })
         }
     } catch (err) {
         return res.status(400).json({ message: err.message })
@@ -127,10 +140,10 @@ router.get("/list/:id", async (req, res) => {
 })
 
 router.get("/endP", (req, res) => {
-  try {
-    return res.status(200).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Working" })
-  } catch (err) {
-    return res.status(400).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Not working", Error: err.message })
-  }
+    try {
+        return res.status(200).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Working" })
+    } catch (err) {
+        return res.status(400).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Not working", Error: err.message })
+    }
 })
 module.exports = router;
