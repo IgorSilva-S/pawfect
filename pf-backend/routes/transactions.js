@@ -26,6 +26,13 @@ router.post("/new", async (req, res) => {
     geralValue = geralValue * qnt
 
     let newTransaction
+    if (user.deleted) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    if (product.deleted) {
+      return res.status(404).json({ message: 'Product not Found' })
+    }
 
     try {
       newTransaction = await prisma.transactions.create({
@@ -58,7 +65,12 @@ router.delete("/del/:id", async (req, res) => {
 
   if (transaction) {
 
-    await prisma.transactions.delete({ where: { id: Number(id) } })
+    await prisma.transactions.update({
+      where: { id: Number(id) },
+      data: {
+        deleted: true
+      }
+    })
 
     return res.status(200).json({
       success: true,
@@ -74,7 +86,15 @@ router.delete("/del/:id", async (req, res) => {
 
 router.get("/list/all", async (req, res) => {
   try {
-    const transactions = await prisma.transactions.findMany()
+    let transactions = await prisma.transactions.findMany()
+    transactions.forEach((transaction) => {
+      if (transaction.deleted) {
+        let index = transactions.indexOf(transaction)
+        if (index > -1) {
+          transactions.splice(index, 1)
+        }
+      }
+    })
     return res.status(200).json({
       success: true,
       status: 200,
@@ -96,7 +116,7 @@ router.get("/list/:id", async (req, res) => {
       return res.status(404).json({ message: "Transaction Not Found", cError: err.message })
     }
 
-    if (transaction) {
+    if (transaction && !transaction.deleted) {
       return res.status(200).json({
         success: true,
         status: 200,
@@ -113,47 +133,162 @@ router.get("/list/:id", async (req, res) => {
 
 router.get("/fullTransaction/:id", async (req, res) => {
   try {
-      const { id } = req.params
-  let transaction
+    const { id } = req.params
+    let transaction
 
-  try {
-    transaction = await prisma.transactions.findUnique({ where: { id: Number(id) }})
+    try {
+      transaction = await prisma.transactions.findUnique({ where: { id: Number(id) } })
+    } catch (err) {
+      return res.status(404).json({ message: `Cannot found transaction with id nº ${id}` })
+    }
+
+    if (transaction && !transaction.deleted) {
+
+      const userId = transaction.userId
+      const prodId = transaction.prodId
+      let user, product
+
+      try {
+        user = await prisma.user.findUnique({ where: { id: userId } })
+      } catch {
+        return res.status(404).json({ message: `Cannot found user with id nº ${userId}` })
+      }
+
+      try {
+        product = await prisma.product.findUnique({ where: { id: prodId } })
+      } catch {
+        return res.status(404).json({ message: `Cannot found product with id nº ${prodId}` })
+      }
+
+      let fullTransaction = {
+        transactionId: id,
+        transactionDate: transaction.transDate,
+        name: user.name,
+        username: user.username,
+        userEmail: user.email,
+        userAddress: user.address,
+        product: product.prodName,
+        productCategory: product.category,
+        productAvaliation: product.avaliation,
+        singleValue: product.prodValue,
+        quantity: transaction.qnt,
+        transactionValue: transaction.geralValue
+      }
+
+      res.status(200).json({ CompleteTransaction: fullTransaction })
+    } else {
+      return res.status(404).json({ message: "Cannot found transaction" })
+    }
+
   } catch (err) {
-    return res.status(404).json({message: `Cannot found transaction with id nº ${id}`})
+    res.status(400).json({ message: err.message })
   }
+})
 
-  const userId = transaction.userId
-  const prodId = transaction.prodId
-  let user, product
-
+router.get("/list/force/all", async (req, res) => {
   try {
-    user = await prisma.user.findUnique({ where: { id: userId } })
-  } catch {
-    return res.status(404).json({ message: `Cannot found user with id nº ${userId}` })
+    let transactions = await prisma.transactions.findMany()
+    return res.status(200).json({
+      success: true,
+      status: 200,
+      message: 'Transactions listed - Forced.',
+      data: { transactions },
+    });
+  } catch (err) {
+    return res.status(400).json({ message: err.message })
   }
+})
 
+router.get("/list/force/:id", async (req, res) => {
   try {
-    product = await prisma.product.findUnique({ where: { id: prodId } })
-  } catch {
-    return res.status(404).json({ message: `Cannot found product with id nº ${prodId}` })
-  }
+    const { id } = req.params
+    let transaction
+    try {
+      transaction = await prisma.transactions.findUnique({ where: { id: Number(id) } })
+    } catch (err) {
+      return res.status(404).json({ message: "Transaction Not Found", cError: err.message })
+    }
 
-  let fullTransaction = {
-    transactionId: id,
-    transactionDate: transaction.transDate,
-    name: user.name,
-    username: user.username,
-    userEmail: user.email,
-    userAddress: user.address,
-    product: product.prodName,
-    productCategory: product.category,
-    productAvaliation: product.avaliation,
-    singleValue: product.prodValue,
-    quantity: transaction.qnt,
-    transactionValue: transaction.geralValue
+    if (transaction) {
+      if (!transaction.deleted) {
+        return res.status(200).json({
+          success: true,
+          status: 200,
+          message: 'Transaction listed - Forced.',
+          data: { transaction },
+        });
+      } else {
+        return res.status(200).json({
+          success: true,
+          status: 200,
+          message: 'Transaction listed - Forced.',
+          warning: 'This transaction is soft-deleted.',
+          data: { transaction },
+        });
+      }
+    } else {
+      return res.status(404).json({ message: "Transaction Not Found" })
+    }
+  } catch (err) {
+    return res.status(400).json({ message: err.message })
   }
+})
 
-  res.status(200).json({ CompleteTransaction: fullTransaction})
+router.get("/fullTransaction/force/:id", async (req, res) => {
+  try {
+    const { id } = req.params
+    let transaction
+
+    try {
+      transaction = await prisma.transactions.findUnique({ where: { id: Number(id) } })
+    } catch (err) {
+      return res.status(404).json({ message: `Cannot found transaction with id nº ${id}` })
+    }
+
+    if (transaction) {
+
+      const userId = transaction.userId
+      const prodId = transaction.prodId
+      let user, product
+
+      try {
+        user = await prisma.user.findUnique({ where: { id: userId } })
+      } catch {
+        return res.status(404).json({ message: `Cannot found user with id nº ${userId}` })
+      }
+
+      try {
+        product = await prisma.product.findUnique({ where: { id: prodId } })
+      } catch {
+        return res.status(404).json({ message: `Cannot found product with id nº ${prodId}` })
+      }
+
+      let fullTransaction = {
+        transactionId: id,
+        transactionDate: transaction.transDate,
+        name: user.name,
+        username: user.username,
+        userEmail: user.email,
+        userAddress: user.address,
+        product: product.prodName,
+        productCategory: product.category,
+        productAvaliation: product.avaliation,
+        singleValue: product.prodValue,
+        quantity: transaction.qnt,
+        transactionValue: transaction.geralValue,
+        forced: 'Enabled - Showing other data',
+        deleted: transaction.deleted
+      }
+
+      if (!transaction.deleted) {
+        res.status(200).json({ CompleteTransaction: fullTransaction })
+      } else {
+        res.status(200).json({ warning: 'This transaction is soft-deleted.', CompleteTransaction: fullTransaction })
+      }
+    } else {
+      return res.status(404).json({ message: "Cannot found transaction" })
+    }
+
   } catch (err) {
     res.status(400).json({ message: err.message })
   }

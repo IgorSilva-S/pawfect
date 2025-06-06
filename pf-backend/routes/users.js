@@ -280,14 +280,14 @@ router.get('/list/force/:email', async (req, res) => {
         return res.status(200).json({
           success: true,
           status: 200,
-          message: `Get specific user: ${user.name}`,
+          message: `Get specific user: ${user.name} - Forced.`,
           data: { user }
         })
       } else {
         return res.status(202).json({
           success: true,
           status: 200,
-          message: `Get specific user: ${user.name}`,
+          message: `Get specific user: ${user.name} - Forced.`,
           warning: 'This user is soft-deleted',
           data: { user }
         })

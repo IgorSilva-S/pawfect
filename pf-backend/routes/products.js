@@ -169,7 +169,7 @@ router.get("/list/force/:id", async (req, res) => {
                 return res.status(200).json({
                     success: true,
                     status: 200,
-                    message: 'Product listed.',
+                    message: 'Product listed - Forced.',
                     warning: 'This product is soft-deleted',
                     data: { product },
                 });
@@ -177,7 +177,7 @@ router.get("/list/force/:id", async (req, res) => {
                 return res.status(200).json({
                     success: true,
                     status: 200,
-                    message: 'Product listed.',
+                    message: 'Product listed - Forced.',
                     data: { product },
                 });
             }
