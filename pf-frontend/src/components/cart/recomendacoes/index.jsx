@@ -11,7 +11,7 @@ export default function Recomendacoes() {
                 <div className="recomendacao">
                     <img className="recomendacao-img" src="../../../../public/img/cart/" alt="Recomendação 1"></img>
                     <div className="nota">
-                        <p className="nota-p">4,9</p>
+                        <p className="nota-p">4.9</p>
                         <img src="../../../../public/img/cart/star.png" alt="Estrela" />
                     </div>
                     <p className="recomendacao-p"></p>
