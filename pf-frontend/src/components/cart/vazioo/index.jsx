@@ -1,12 +1,13 @@
 import React from "react";
-import Vazio from "../cart/vazioo";
-import Cheio from "../cart/cheio";
+import Mensagem from "./mensagem";
+import Recomendacoes from "./recomendacoes";
 
 export default function Cart() {
     return (
         <div className="cart">
             <>
-                <Vazio />
+                <Mensagem />
+                <Recomendacoes />
             </>
         </div>
     );

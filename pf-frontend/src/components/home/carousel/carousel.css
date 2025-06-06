@@ -1,6 +1,6 @@
 .carousel {
     width: 100vw;
-    height: 650px;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +10,7 @@
 
 [carouselBanner] {
     transition-duration: .3s;
-}
+} 
 
 .carouselMid {
     width: 70%;
@@ -49,23 +49,27 @@
 
 .cControls {
     position: absolute;
-    background-color: transparent;
+    background-color: var(--vclaro1);
+    border-radius: 50%;
     border: none;
-    width: 3vw;
-    height: 3vw;
+    width: 2.2vw;
+    height: 2.2vw;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cControls img{
-    width: 2vw;
+    width: 1.3vw;
 }
 
 .cControls.prv {
-    left: 15%;
+    left: 15.5%;
 }
 
 .cControls.nxt {
-    left: 82%;
+    left: 82.1%;
 }
 
 #carousel1 {

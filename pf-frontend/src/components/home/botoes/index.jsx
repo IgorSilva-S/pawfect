@@ -6,8 +6,8 @@ export default function Home() {
         <div>
             <div id="botoes-home">
                 <button className="botao-home">Cupons te esperando!</button> 
-                <button className="botao-home">Frete Grátis!*</button> 
-                <button className="botao-home">Até 3x sem juros!</button> 
+                <div className="div-home">Frete Grátis!*</div> 
+                <div className="div-home">Até 3x sem juros!</div> 
             </div>
         </div>
         
