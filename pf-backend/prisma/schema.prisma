@@ -25,6 +25,7 @@ model User {
   updatedAt    DateTime       @updatedAt @db.Timestamp(3)
   transactions Transactions[]
   cart         Cart[]
+  wishlist    WishList[]
 }
 
 model Product {
@@ -38,6 +39,7 @@ model Product {
   deleted      Boolean        @default(false)
   transactions Transactions[]
   cart         Cart[]
+  wishlist    WishList[]
 }
 
 model Transactions {
@@ -53,6 +55,15 @@ model Transactions {
 }
 
 model Cart {
+  id      Int      @id @default(autoincrement())
+  prodId  Int
+  userId  Int
+  addedIn DateTime @default(now())
+  user    User     @relation(fields: [userId], references: [id])
+  product Product  @relation(fields: [prodId], references: [id])
+}
+
+model WishList {
   id      Int      @id @default(autoincrement())
   prodId  Int
   userId  Int
