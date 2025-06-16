@@ -6,7 +6,7 @@ export default function Cart() {
     return (
         <div className="cart">
             <>
-                <Vazio />
+                <Cheio />
             </>
         </div>
     );

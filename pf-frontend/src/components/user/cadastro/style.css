@@ -1,7 +1,7 @@
 .cadastro-title {
-  font-size: 2.3vw;
-  margin-top: 22vh;
-  margin-bottom: 3vh;
+  font-size: 2.2vw;
+  margin-top: 17vh;
+  margin-bottom: 5vh;
   text-align: center;
 }
 
@@ -11,12 +11,12 @@
   font-family: corpo;
   background-color: transparent;
   margin-top: -17vh;
-}
+} 
 
 .cadastro-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-left: 17vw;
   font-size: 1rem;
   gap: 2vh;
   width: 100%;
@@ -36,7 +36,7 @@
   display: flex;
   flex-direction: column;
   font-weight: 500;
-  font-size: 1.2vw;
+  font-size: 1.4vw;
   color: var(--vescuro);
   width: 100%;
 }
@@ -49,8 +49,8 @@
   font-family: "corpo", sans-serif;
   color: var(--vescuro);
   font-size: 1rem;
-  width: 25vw;
-  height: 6vh;
+  width: 30vw;
+  height: 7vh;
   box-sizing: border-box;
 }
 
@@ -60,14 +60,17 @@
 }
 
 .cadastro-error {
-  font-size: 1.1vw;
+  font-size: 1.2vw;
   color: rgb(156, 30, 30);
   text-align: center;
-  margin-top: 1vh;
+  margin-top: 2vh;
+  margin-left: 8vw;
+  margin-bottom: -0.8vh;
 }
 
 .cadastro-button {
   margin-top: 3vh;
+  margin-left: 20vw;
   background-color: var(--vclaro2);
   color: var(--vescuro);
   font-family: "corpo", sans-serif;
@@ -76,7 +79,7 @@
   padding: 12px 24px;
   cursor: pointer;
   transition: border 0.2s ease, background-color 0.2s ease;
-  font-size: 1.2vw;
+  font-size: 1.4vw;
   width: 40%;
   flex-direction: row;
   align-items: center;

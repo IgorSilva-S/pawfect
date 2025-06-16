@@ -18,7 +18,7 @@
 
 .favorito {
   width: 13vw;
-  height: 40vh;
+  height: 43vh;
   display: flex;
   flex-direction: column;
   background-color: var(--vclaro1);
