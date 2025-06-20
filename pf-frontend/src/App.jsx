@@ -9,6 +9,19 @@ import Cart from './components/cart';
 import LikesPage from './components/likes'
 import Perfil from "./components/user/perfil";
 import Cadastro from "./components/user/cadastro";
+import Dados from "./components/user/dados";
+import Pedidos from "./components/user/pedidos";
+import Cupons from "./components/home/cupons";   
+import Gatos from "./components/produtos/gatos"
+import Caes from "./components/produtos/caes"
+import Passaros from "./components/produtos/passaros"
+import Roedores from "./components/produtos/roedores"
+import Peixes from "./components/produtos/peixes"
+import Materia1 from "./components/materias/materia1";
+import Materia2 from "./components/materias/materia2";
+import Materia3 from "./components/materias/materia3";
+import Materia4 from "./components/materias/materia4";
+import Materia5 from "./components/materias/materia5";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -21,8 +34,21 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/liked" element={<LikesPage />} />
         <Route path="/user" element={<User />} />
-        <Route path="perfil" element={<Perfil />} />
-        <Route path="cadastro" element={<Cadastro />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/dados" element={<Dados />} />
+        <Route path="/pedidos" element={<Pedidos />} />
+        <Route path="/cupons" element={<Cupons />} />
+        <Route path="/gatos" element={<Gatos />} />
+        <Route path="/caes" element={<Caes />} />
+        <Route path="/passaros" element={<Passaros />} />
+        <Route path="/roedores" element={<Roedores />} />
+        <Route path="/peixes" element={<Peixes />} />
+        <Route path="/materia1" element={<Materia1 />} />
+        <Route path="/materia2" element={<Materia2 />} /> 
+        <Route path="/materia3" element={<Materia3 />} />
+        <Route path="/materia4" element={<Materia4 />} />
+        <Route path="/materia5" element={<Materia5 />} />
       </Routes>
     <Footer />
     </>

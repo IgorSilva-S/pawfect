@@ -1,6 +1,6 @@
 .header {
   background-color: var(--vclaro2);
-  height: 40vh;
+  height: 30vh;
   width: 80%;
   border-radius: 1.5vw;
   margin-top: 10vh;
@@ -15,8 +15,7 @@
 .title{
   font-size: 2.5vw;
   font-weight: 600;
-  margin-left: 5vw;
-  margin-right: 7vw;
+  margin-left: 3.4vw;
   font-weight: lighter;
 }
 
@@ -24,50 +23,71 @@
   color: var(--vescuro);
   font-size: 1.5vw;
   font-weight: 600;
-  margin-left: 5vw;
-  margin-right: 7vw;
+  margin-left: 18vw;
   font-weight: lighter;
+  text-align: right;
+  width: 20vw;
 }
 
 .perfil-img {
-  width: 25vw;
-}
-
-.subtitle {
-  margin-top: 60px;
-  font-size: 14px;
-  color: #4a5a53;
+  width: 20vw;
+  position: relative;
+  left: 14vw;
 }
 
 .options {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin-top: 40px;
+  gap: 9vw;
+  margin-top: 12vh;
 }
 
 .option {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #4a5a53;
-  font-weight: 600;
-}
-
-.icon-box {
-  background-color: #dfeee7;
+  background-color: var(--vclaro2);
+  width: 10vw;
+  height: 10vw;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  margin-bottom: 10px;
-  transition: background-color 0.3s;
+  font-family: corpo;
+  color: var(--vescuro);
+  font-size: 1.5vw;
+  font-weight: lighter;
+  cursor: pointer;
 }
 
-.option:hover .icon-box {
-  background-color: #b2d7c7;
-  cursor: pointer;
+.option:hover {
+   width: 9.7vw;
+   height: 9.7vw;
+   transition: width 0.3s, height 0.3s;
+}
+
+.img-button1{
+  width: 5vw;
+}
+
+.img-button2{
+  width: 4.1vw;
+}
+
+.img-button3{
+  width: 4vw;
+  margin-left: 0.6vw;
+}
+
+.text-buttons{
+  margin-left: 24.5vw;
+  display: flex;
+  gap: 9vw;
+  margin-top: 3vh;
+  margin-bottom: 10vh;
+  font-family: corpo;
+  color: var(--vescuro);
+  font-size: 4vh;
+  font-weight: lighter;
+}
+
+.text-button3{
+  margin-left: 3.2vw;
 }
