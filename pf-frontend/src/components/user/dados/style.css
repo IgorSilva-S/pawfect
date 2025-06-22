@@ -1,0 +1,126 @@
+.meus-dados-container {
+  padding: 2vw;
+  border-radius: 1.2vw;
+  text-align: center;
+  font-family: corpo;
+  color: var(--vescuro);
+  font-weight: lighter;
+}
+
+.meus-dados-titulo {
+  margin-bottom: 2vw;
+  font-size: 2.2vw;
+}
+
+.meus-dados-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1vw;
+  column-gap: 38vw; 
+  justify-items: stretch;
+  align-items: start;
+  width: 100%;
+  margin-left: 9.3vw;
+  max-width: 40vw;
+}
+
+.meus-dado {
+  background-color: var(--vclaro2);
+  width: 35vw;
+  padding: 1vw;
+  border-radius: 0.8vw;
+  font-size: 1.2vw;
+  color: var(--vescuro);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.meus-dado input {
+  width: 100%;
+  padding: 0.4vw 0.8vw;
+  border-radius: 0.5vw;
+  background-color: var(--vclaro2);
+  margin-left: 0.6vw;
+}
+
+.senha {
+  position: relative;
+}
+
+.icone-senha {
+  width: 1.8vw;
+  height: 1.8vw;
+  margin-left: 0.5vw;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.meus-dados-botoes {
+  margin: 1.5vw 0;
+  display: flex;
+  gap: 1vw;
+  justify-content: center;
+}
+
+.btn-editar {
+  font-family: corpo;
+  background-color: transparent;
+  color: var(--vescuro);
+  text-decoration: underline;
+  font-size: 1.5vw;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-cancelar {
+  background-color: rgb(156, 30, 30);
+  color: var(--vclaro1);
+  font-family: corpo;
+  font-size: 1.2vw;
+  width: 10vw;
+  border: none;
+  border-radius: 0.8vw;
+  cursor: pointer;
+  height: 2.5vw;
+}
+
+.btn-salvar {
+  background-color: var(--vescuro);
+  color: var(--vclaro1);
+  border: none;
+  border-radius: 0.8vw;
+  font-family: corpo;
+  width: 10vw;
+  font-size: 1.2vw;
+  cursor: pointer;
+}
+
+.meus-dados-priv {
+  font-size: 1vw;
+  color: var(--vescuro);
+}
+
+.link-privacidade {
+  color: var(--vescuro);
+  text-decoration: underline;
+}
+
+.input-editavel {
+  border: none;
+  outline: none;
+  transition: border 0.2s ease-in-out;
+  font-family: corpo;
+  color: var(--vescuro);
+  width: 100%;
+  border-radius: 0.5vw;
+  font-size: 1.2vw;
+  margin-left: 0.6vw;
+  text-align: right;
+}
+
+.input-editavel:focus {
+  border-color: var(--vclaro1);
+  font-size: 1vw;
+  width: 80%;
+}
