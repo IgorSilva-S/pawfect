@@ -11,7 +11,7 @@ export default function TitleBar() {
 
             <div className="tbItems">
                 <input  type="search" id="search-bar" />
-                <Link to="/cart">
+                <Link to="/cart/vazio">
                     <button id="cart"></button>
                 </Link>
                 <Link to="/liked">

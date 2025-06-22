@@ -15,7 +15,7 @@ export default function Perfil() {
 
       <div className="options">
 
-         <Link to="/pedidos">
+         <Link to="/pedidos/vazio">
                  <div className="option">
                    <img src="/img/perfil/pedidos-button.png" alt="Pedidos" className="img-button1"/>
                  </div>
