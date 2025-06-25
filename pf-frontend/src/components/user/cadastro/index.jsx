@@ -36,7 +36,7 @@ export default function Cadastro() {
   };
 
   return (
-    <div className="cadastro-container">
+    <section className="cadastro-container">
       <p className="cadastro-title">Preencha seus dados para cadastrar</p>
       <form className="cadastro-form" onSubmit={handleSubmit}>
         <div className="cadastro-grid">
@@ -113,6 +113,6 @@ export default function Cadastro() {
           Cadastrar
         </button>
       </form>
-    </div>
+    </section>
   );
 }

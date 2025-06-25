@@ -6,7 +6,7 @@
     height: 100px;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--vclaro2);
+    background-color: #c5d4c7dd;
     border-radius: 16px;
     border: 0.5px solid var(--vmedio);
     margin-top: 40px;
@@ -14,6 +14,22 @@
     position: sticky;
     top: 5%;
     z-index: 1000;
+}
+
+.lgEffect {
+    backdrop-filter: blur(3px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 16px;
+    left: 0px;
+    inset: 0;
+    filter: url(#glassD)
+}
+
+.titleBar svg {
+    display: none;
 }
 
 #logo-menu {
@@ -42,10 +58,10 @@
     font-size: 5rem;
     margin-bottom: 1.4vh;
     margin-right: 2vw;
-    background-image: url('../../../public/img/menu/lupa.png'); 
+    background-image: url('../../../public/img/menu/lupa.png');
     background-repeat: no-repeat;
-    background-position: left 0.5vw center; 
-    background-size: 3vh 3vh; 
+    background-position: left 0.5vw center;
+    background-size: 3vh 3vh;
     box-sizing: border-box;
     padding-left: 0.1vw;
     text-indent: 2.4vw;

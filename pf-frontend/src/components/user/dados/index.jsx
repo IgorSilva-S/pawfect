@@ -32,7 +32,7 @@ export default function MeusDados() {
   };
 
   return (
-    <div className="meus-dados-container">
+    <section className="meus-dados-container">
       <p className="meus-dados-titulo">Meus Dados</p>
 
       <div className="meus-dados-grid">
@@ -153,6 +153,6 @@ export default function MeusDados() {
           Aviso de Privacidade
         </a>
       </p>
-    </div>
+    </section>
   );
 }
