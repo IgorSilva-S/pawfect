@@ -10,13 +10,14 @@
 
 [carouselBanner] {
     transition-duration: .3s;
-} 
+}
 
 .carouselMid {
     width: 70%;
     height: 80%;
     border-radius: 26px;
     animation: appearCarousel .3s;
+    z-index: 2;
 }
 
 .carouselLeft {
@@ -26,6 +27,7 @@
     position: absolute;
     left: -60%;
     animation: appearCarousel .3s;
+    z-index: 2;
 }
 
 .carouselRight {
@@ -35,6 +37,33 @@
     position: absolute;
     right: -60%;
     animation: appearCarousel .3s;
+    z-index: 2;
+}
+
+.carouselMidCl {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    position: absolute;
+    background-color: var(--vescuro);
+}
+
+.carouselLeftCl {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    position: absolute;
+    left: -60%;
+    background-color: var(--vescuro);
+}
+
+.carouselRightCl {
+    width: 70%;
+    height: 80%;
+    border-radius: 26px;
+    position: absolute;
+    right: -60%;
+    background-color: var(--vescuro);
 }
 
 @keyframes appearCarousel {
@@ -58,9 +87,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 3;
 }
 
-.cControls img{
+.cControls img {
     width: 1.3vw;
 }
 

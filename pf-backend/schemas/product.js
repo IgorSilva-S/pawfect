@@ -6,7 +6,7 @@ const newProdSchema = z.object({
     avaliation: z.number(),
     imageLink: z.string().min(14),
     category: z.string(),
-    subCategory: z.string().optional()
+    subCategory: z.number()
 })
 
 const updateProdSchema = newProdSchema.pick({

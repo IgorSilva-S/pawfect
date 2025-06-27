@@ -189,6 +189,26 @@ router.get("/list/force/:id", async (req, res) => {
     }
 })
 
+router.get('/list/:category/:scat', async (req, res) => {
+    try {
+        const { category, scat } = req.params
+        let catProds = await prisma.product.findMany(
+            { where: { category: category } }
+        )
+
+        catProds = catProds.filter(product => product.subCategory === Number(scat));
+
+        return res.status(200).json({
+            success: true,
+            status: 200,
+            message: `Prod List - ${category}`,
+            data: { catProds },
+        });
+    } catch (err) {
+        return res.status(400).json({ message: err.message })
+    }
+})
+
 router.get("/endP", (req, res) => {
     try {
         return res.status(200).json({ Program: "Pawfect", Type: "BackEnd", EndPoint: "Product", Status: "Working" })

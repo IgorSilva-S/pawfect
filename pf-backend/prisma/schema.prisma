@@ -35,7 +35,7 @@ model Product {
   avaliation   Decimal        @db.Decimal(3, 1)
   imageLink    String         @db.VarChar(255)
   category     String         @db.VarChar(255)
-  subCategory  String?        @db.VarChar(255)
+  subCategory  Int 
   deleted      Boolean        @default(false)
   transactions Transactions[]
   cart         Cart[]

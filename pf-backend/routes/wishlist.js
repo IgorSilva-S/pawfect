@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 
 router.post('/add', async (req, res) => {
     const { userId, prodId } = req.body
+    console.log(userId, prodId)
     try {
         const wishlist = await prisma.wishList.create({
             data: {
@@ -15,7 +16,9 @@ router.post('/add', async (req, res) => {
 
         return res.status(201).json({ message: 'Added', product: wishlist })
     } catch (err) {
+        console.log(err)
         return res.status(400).json({ error: err })
+
     }
 })
 
@@ -79,32 +82,28 @@ router.get('/list/:id', async (req, res) => {
 
 router.get("/list/user/:email", async (req, res) => {
     try {
-        let wishAll = await prisma.wishList.findMany()
-        let { email } = req.params
+        const { email } = req.params;
 
-        const user = await prisma.user.findUnique({ where: { email: email } })
-        if (user && !user.deleted) {
-            try {
-                wishAll.forEach((wish) => {
-                    if (wish.userId != user.id) {
-                        let index = wishAll.findIndex(wish)
-                        if (index > -1) {
-                            wishAll.splice(index, 1)
-                        }
-                    }
-                })
-            } catch {
-                return res.sendStatus(204)
-            }
-        } else {
-            return res.status(404).json({ error: 'Cannot found user' })
+        const user = await prisma.user.findUnique({
+            where: { email }
+        });
+
+        if (!user || user.deleted) {
+            return res.status(404).json({ error: "Cannot find user" });
         }
 
-        return res.status(200).json({ message: `Get wishlist from the user ${user.name}`, wishList: wishAll })
+        const wishList = await prisma.wishList.findMany({
+            where: { userId: user.id }
+        });
+
+        return res.status(200).json({
+            message: `Get wishlist from the user ${user.name}`,
+            wishList
+        });
     } catch (err) {
-        return res.status(400).json({ message: err })
+        return res.status(400).json({ message: err.message });
     }
-})
+});
 
 router.get("/endP", (req, res) => {
     try {

@@ -70,6 +70,9 @@ export default function Carousel() {
 
     return (
         <div className="carousel">
+            <div className="carouselLeftCl"></div>
+            <div className="carouselMidCl"></div>
+            <div className="carouselRightCl"></div>
             <div className="carouselLeft" id="carousel1" carouselBanner='true'></div>
             <div className="carouselMid" id="carousel2" carouselBanner='true'></div>
             <div className="carouselRight" id="carousel3" carouselBanner='true'></div>

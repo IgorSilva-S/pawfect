@@ -23,7 +23,7 @@
   --cl-O1: #deb297;
   --cl-O2: #c98d7b;
   --cl-BN1: #8a6662;
-  --cl-BN2: #452926; 
+  --cl-BN2: #452926;
 }
 
 body {
@@ -36,10 +36,16 @@ section {
   animation: entrance .2s ease-out;
 }
 
+div {
+  animation: entrance .2s ease-out;
+}
+
 @keyframes entrance {
   from {
     opacity: 0;
-  } to {
+  }
+
+  to {
     opacity: 1;
   }
 }
