@@ -1,15 +1,17 @@
 import './style.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function MeusDados() {
+  const Navigate = useNavigate()
+
   const [editando, setEditando] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [dados, setDados] = useState({
     email: 'emaildologin@gmail.com',
     nome: '',
-    cpf: '',
     celular: '',
-    senha: 'minhasenha123',
+    senha: '',
     endereco: 'Rua 4, Bairro, Cidade'
   });
 
@@ -17,9 +19,67 @@ export default function MeusDados() {
     setDados({ ...dados, [e.target.name]: e.target.value });
   };
 
-  const handleSalvar = () => {
+  const handleSalvar = async () => {
+    let token = localStorage.getItem('token')
+    let tokenData = await fetch('http://localhost:3000/api/user/profile/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
+      },
+    })
+
+    if (tokenData.ok) {
+      console.log('Token OK')
+    } else {
+      console.error('Token inválido')
+      setEditando(false);
+      setMostrarSenha(false);
+      return;
+    }
+
+    let user = await tokenData.json()
+    user = user.user.email
+    let passInp = dados.senha
+    if (passInp == undefined) {
+      passInp = ''
+    }
+
+    if (passInp.trim() === '') {
+      await fetch(`http://localhost:3000/api/user/edit/${user}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: dados.nome,
+          email: dados.email,
+          phone: dados.celular,
+          address: dados.address
+        })
+      })
+    } else {
+      await fetch(`http://localhost:3000/api/user/edit/${user}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: dados.nome,
+          email: dados.email,
+          phone: dados.celular,
+          address: dados.address,
+          password: dados.senha
+        })
+      })
+    }
+
+
+
     setEditando(false);
     setMostrarSenha(false);
+
+    Navigate('/perfil')
   };
 
   const handleCancelar = () => {
@@ -30,6 +90,82 @@ export default function MeusDados() {
   const toggleMostrarSenha = () => {
     setMostrarSenha((prev) => !prev);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      let token = localStorage.getItem('token')
+      let tokenData = await fetch('http://localhost:3000/api/user/profile/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
+        },
+      })
+
+      if (tokenData.ok) {
+        console.log('Token OK')
+      } else {
+        Navigate('/user')
+      }
+
+      let resMsg = await tokenData.json()
+      let user = resMsg.user
+      const userData = await fetch(`http://localhost:3000/api/user/list/${user.email}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      let userJson = await userData.json()
+      userJson = userJson.data.user
+      setDados({
+        email: userJson.email,
+        nome: userJson.name,
+        celular: userJson.phone,
+        password: '',
+        endereco: userJson.address
+      })
+    }
+
+    getData()
+  }, [])
+
+  const deleteUser = async () => {
+    let token = localStorage.getItem('token')
+    let tokenData = await fetch('http://localhost:3000/api/user/profile/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${token}`
+      },
+    })
+
+    if (tokenData.ok) {
+      console.log('Token OK')
+    } else {
+      Navigate('/user')
+    }
+
+    let resMsg = await tokenData.json()
+    let user = resMsg.user.email
+    const response = await fetch(`http://localhost:3000/api/user/del/${user}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+
+    if (response.ok) {
+      alert('Usuário apagado!')
+      localStorage.removeItem('token')
+      Navigate('/user')
+    } else {
+      console.error('Não foi possível deletar o usuário')
+      setEditando(false);
+      setMostrarSenha(false);
+      return
+    }
+  }
 
   return (
     <section className="meus-dados-container">
@@ -65,20 +201,6 @@ export default function MeusDados() {
           )}
         </div>
         <div className="meus-dado">
-          <strong>CPF:</strong>{' '}
-          {editando ? (
-            <input
-              type="text"
-              name="cpf"
-              value={dados.cpf}
-              onChange={handleChange}
-              className={editando ? 'input-editavel' : ''}
-            />
-          ) : (
-            dados.cpf
-          )}
-        </div>
-        <div className="meus-dado">
           <strong>Celular:</strong>{' '}
           {editando ? (
             <input
@@ -111,7 +233,7 @@ export default function MeusDados() {
               />
             </>
           ) : (
-            '*********'
+            'Não podemos mostrar a senha'
           )}
         </div>
         <div className="meus-dado">
@@ -128,6 +250,16 @@ export default function MeusDados() {
             dados.endereco
           )}
         </div>
+        <div className="meus-dado">
+          <strong>Apagar usuário</strong>{' '}
+          {editando ? (
+            <button className="btn-cancelar" onClick={deleteUser}>
+              Apagar
+            </button>
+          ) : (
+            'Edite o usuário'
+          )}
+        </div>
       </div>
 
       <div className="meus-dados-botoes">
@@ -141,9 +273,11 @@ export default function MeusDados() {
             </button>
           </>
         ) : (
-          <button className="btn-editar" onClick={() => setEditando(true)}>
-            Editar
-          </button>
+          <>
+            <button className="btn-editar" onClick={() => setEditando(true)}>
+              Editar
+            </button>
+          </>
         )}
       </div>
 

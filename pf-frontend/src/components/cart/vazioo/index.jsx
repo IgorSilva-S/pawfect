@@ -7,7 +7,6 @@ export default function Cart() {
         <div className="cart">
             <>
                 <Mensagem />
-                <Recomendacoes />
             </>
         </div>
     );

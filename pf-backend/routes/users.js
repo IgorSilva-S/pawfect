@@ -83,12 +83,17 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid user" });
     }
 
+    if (user.deleted) {
+       return res.status(401).json({ message: "Invalid user" });
+    }
+
     // Generate token
     const token = generateToken({ id: user.id, email: user.email, name: user.name });
 
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     res.status(400).json({ message: error.message });
+    console.log(error.message)
   }
 });
 

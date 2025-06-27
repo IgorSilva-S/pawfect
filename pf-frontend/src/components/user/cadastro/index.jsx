@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 export default function Cadastro() {
   const [form, setForm] = useState({
     nome: '',
-    cpf: '',
     endereco: '',
     email: '',
     senha: '',
@@ -22,7 +21,7 @@ export default function Cadastro() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const camposObrigatorios = ['nome', 'cpf', 'endereco', 'email', 'senha'];
+    const camposObrigatorios = ['nome', 'endereco', 'email', 'senha'];
     const camposVazios = camposObrigatorios.some(campo => !form[campo]);
 
     if (camposVazios) {
@@ -32,8 +31,44 @@ export default function Cadastro() {
 
     setErro('');
     console.log('Cadastro bem-sucedido!', form);
-    navigate('/perfil');
   };
+
+  const sendNewUser = async () => {
+    const response = await fetch('http://localhost:3000/api/user/new', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: form.nome,
+        address: form.endereco,
+        email: form.email,
+        password: form.senha,
+        phone: form.telefone
+      })
+    })
+
+    if (response.ok) {
+      const login = await fetch('http://localhost:3000/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: form.email.trim(), password: form.senha.trim() })
+      })
+
+      if (login.ok) {
+        console.log('Login bem-sucedido!');
+        let responseMsg = await login.json()
+        localStorage.setItem('token', responseMsg.token)
+        navigate('/perfil');
+      } else {
+        console.log('Erro no login')
+      }
+    } else {
+      console.error('Erro na criação do usuário')
+    }
+  }
 
   return (
     <section className="cadastro-container">
@@ -47,17 +82,6 @@ export default function Cadastro() {
               type="text"
               name="nome"
               value={form.nome}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label className="cadastro-label">
-            CPF:
-            <input
-              className="cadastro-input"
-              type="text"
-              name="cpf"
-              value={form.cpf}
               onChange={handleChange}
             />
           </label>
@@ -105,13 +129,15 @@ export default function Cadastro() {
               onChange={handleChange}
             />
           </label>
+
+          <button className="cadastro-button" type="submit" onClick={sendNewUser}>
+            Cadastrar
+          </button>
         </div>
 
         {erro && <p className="cadastro-error">{erro}</p>}
 
-        <button className="cadastro-button" type="submit">
-          Cadastrar
-        </button>
+
       </form>
     </section>
   );

@@ -4,6 +4,13 @@ import imgperfil from "/img/perfil/perfil-img.png";
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function Perfil() {
+  const Navigate = useNavigate()
+
+  const exit = () => {
+    localStorage.removeItem('token')
+    Navigate('/user')
+  }
+
   return (
     <div className="perfil-container">
 
@@ -27,7 +34,7 @@ export default function Perfil() {
                  </div>
          </Link>
 
-        <div className="option">
+        <div className="option" onClick={exit}>
           <img src="/img/perfil/out-button.png" alt="Sair" className="img-button3"/>
         </div> 
       </div>

@@ -69,8 +69,7 @@
 }
 
 .cadastro-button {
-  margin-top: 3vh;
-  margin-left: 20vw;
+  margin-top: 3.4vh;
   background-color: var(--vclaro2);
   color: var(--vescuro);
   font-family: "corpo", sans-serif;
@@ -80,7 +79,7 @@
   cursor: pointer;
   transition: border 0.2s ease, background-color 0.2s ease;
   font-size: 1.4vw;
-  width: 40%;
+
   flex-direction: row;
   align-items: center;
 }
