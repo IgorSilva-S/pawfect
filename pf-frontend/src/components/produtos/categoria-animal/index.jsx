@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { categoriasPorAnimal } from '../dados/categorias';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './style.css';
 
 export default function PaginaCategoriaAnimal() {
+  const Navigate = useNavigate()
   const { animal, id } = useParams();
   const [categoria, setCategoria] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -53,6 +55,7 @@ export default function PaginaCategoriaAnimal() {
         console.log('Token OK')
       } else {
         Navigate('/user')
+        return
       }
       let resMsg = await tokenData.json()
       let user = resMsg.user
@@ -61,17 +64,31 @@ export default function PaginaCategoriaAnimal() {
       let prodId = id
       let userId = user.id
 
-      await fetch('http://localhost:3000/api/wish/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+      try {
+        await fetch('http://localhost:3000/api/wish/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
 
-        body: JSON.stringify({
-          "prodId": prodId,
-          "userId": userId
+          body: JSON.stringify({
+            "prodId": prodId,
+            "userId": userId
+          })
         })
-      })
+      } catch (err) {
+        console.error(`Tivemos um probleminha 🫠: ${err}`)
+      }
+
+      document.getElementById('added').innerHTML = 'Adicionado aos Favoritos!'
+      document.getElementById('added').style.display = 'block'
+      setTimeout(() => {
+        document.getElementById('added').style.opacity = '0'
+      }, 2600);
+      setTimeout(() => {
+        document.getElementById('added').removeAttribute('style')
+      }, 3000);
+
     } catch (err) {
       console.error(`Tivemos um probleminha 🫠: ${err}`)
     }
@@ -107,6 +124,10 @@ export default function PaginaCategoriaAnimal() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="added" id="added">
+        Adicionado aos Favoritos!
       </div>
     </div>
   );

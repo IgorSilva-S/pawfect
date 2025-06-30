@@ -1,5 +1,5 @@
 export const categoriasPorAnimal = {
-  gatos: [
+  gato: [
     { id: '1', nome: 'Rações secas', produtos: [] },
     { id: '2', nome: 'Rações úmidas', produtos: [] },
     { id: '3', nome: 'Rações medicamentosas', produtos: [] },
@@ -22,7 +22,7 @@ export const categoriasPorAnimal = {
     { id: '20', nome: 'Medicamentos', produtos: [] }
   ],
 
-  caes: [
+  cachorro: [
     { id: '1', nome: 'Rações secas', produtos: [] },
     { id: '2', nome: 'Rações úmidas', produtos: [] },
     { id: '3', nome: 'Rações medicamentosas', produtos: [] },
@@ -45,7 +45,7 @@ export const categoriasPorAnimal = {
     { id: '20', nome: 'Petiscos', produtos: [] }
   ],
 
-  aves: [
+  pássaro: [
     { id: '1', nome: 'Calopsitas', produtos: [] },
     { id: '2', nome: 'Papagaios', produtos: [] },
     { id: '3', nome: 'Canários', produtos: [] },

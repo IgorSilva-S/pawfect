@@ -101,3 +101,17 @@
 .categoria-b:hover img {
   width: 1.5vw;
 }
+
+.added {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: var(--vclaro2);
+  position: absolute;
+  font-family: corpo;
+  color: var(--vescuro);
+  font-size: 20px;
+  top: 160px;
+  right: 73px;
+  display: none;
+  transition-duration: .4s;
+}
