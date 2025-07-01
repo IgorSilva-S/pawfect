@@ -19,7 +19,7 @@ export default function Carrinho() {
         });
 
         if (!tokenRes.ok) {
-          navigate('/user');
+          Navigate('/user');
           return;
         }
 
@@ -61,8 +61,46 @@ export default function Carrinho() {
     }
   }
 
-  const purchaseItem = async (id) => {
-    console.log('Purchase')
+  const purchaseItem = async (id, cId) => {
+    try {
+      const token = localStorage.getItem('token');
+      const tokenRes = await fetch('http://localhost:3000/api/user/profile/', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
+        }
+      });
+
+      if (!tokenRes.ok) {
+        Navigate('/user');
+        return;
+      }
+
+      const { user } = await tokenRes.json();
+      const purchaseFetch = await fetch('http://localhost:3000/api/transaction/new', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "userId": user.id,
+          "prodId": id,
+          "qnt": Number(document.getElementById(`${cId}Inp`).value)
+        })
+      })
+
+      if (purchaseFetch.ok) {
+        const pFetch = await purchaseFetch.json()
+        sessionStorage.setItem('tId', pFetch.transaction.id)
+        await fetch(`http://localhost:3000/api/cart/remove/${id}`, {
+          method: 'DELETE'
+        })
+        Navigate('/nota-fiscal')
+        return;
+      }
+    } catch (err) {
+      console.error(`Tivemos um probleminha aqui 🫠: ${err.message}`)
+    }
   }
 
   return (
@@ -110,9 +148,9 @@ export default function Carrinho() {
                       if (document.getElementById(`${produto.cartId}Inp`).value < 0) {
                         document.getElementById(`${produto.cartId}Inp`).value = 1
                       }
-                    }}/>
+                    }} />
                   </div>
-                  <button className="btn" onClick={() => {purchaseItem(produto.cartId)}}>
+                  <button className="btn" onClick={() => { purchaseItem(produto.id, produto.cartId) }}>
                     Comprar
                   </button>
                   <img

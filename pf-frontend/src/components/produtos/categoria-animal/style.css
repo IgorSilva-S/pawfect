@@ -128,7 +128,7 @@
   padding: 10px 15px;
   border-radius: 8px;
   background-color: var(--vclaro2);
-  position: absolute;
+  position: fixed;
   font-family: corpo;
   color: var(--vescuro);
   font-size: 20px;
