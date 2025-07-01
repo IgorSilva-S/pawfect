@@ -45,7 +45,7 @@ export default function Favoritos() {
     };
 
     fetchWishes();
-  }, [navigate]);
+  }, []);
 
   if (loading) return <p>Carregando favoritos...</p>;
 

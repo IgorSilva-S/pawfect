@@ -94,9 +94,67 @@ export default function PaginaCategoriaAnimal() {
     }
   }
 
+  
+  const sentCart = async (id) => {
+    try {
+      let token = localStorage.getItem('token')
+      let tokenData = await fetch('http://localhost:3000/api/user/profile/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
+        },
+      })
+
+      if (tokenData.ok) {
+        console.log('Token OK')
+      } else {
+        Navigate('/user')
+        return
+      }
+      let resMsg = await tokenData.json()
+      let user = resMsg.user
+      console.log(user.id)
+      console.log(id)
+      let prodId = id
+      let userId = user.id
+
+      try {
+        await fetch('http://localhost:3000/api/cart/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify({
+            "prodId": prodId,
+            "userId": userId
+          })
+        })
+      } catch (err) {
+        console.error(`Tivemos um probleminha 🫠: ${err}`)
+      }
+
+      document.getElementById('added').innerHTML = 'Adicionado ao Carrinho!'
+      document.getElementById('added').style.display = 'block'
+      setTimeout(() => {
+        document.getElementById('added').style.opacity = '0'
+      }, 2600);
+      setTimeout(() => {
+        document.getElementById('added').removeAttribute('style')
+      }, 3000);
+
+    } catch (err) {
+      console.error(`Tivemos um probleminha 🫠: ${err}`)
+    }
+  }
+
   return (
     <div className="categoria-container">
-      <p className="p-categoria-animal">{categoria.nome}</p>
+      <div className="categoria-header">
+        <button onClick={() => { let pastPage = sessionStorage.getItem('lastPage'); Navigate(pastPage) }} className='backButton'>←</button>
+        <p className="p-categoria-animal">{categoria.nome}</p>
+      </div>
 
       <div id="container-categoria">
         {categoria.produtos.map((produto, index) => (
@@ -115,7 +173,7 @@ export default function PaginaCategoriaAnimal() {
             <p className="categoria-p">{produto.prodName}</p>
             <p className="categoria-preco">R$ {Number(produto.prodValue).toFixed(2)}</p>
             <div className="categoria-bs">
-              <button className="categoria-b">
+              <button className="categoria-b"  onClick={() => { sentCart(produto.id) }}>
                 <img src="/img/menu/carrinho.png" alt="Adicionar ao carrinho" />
               </button>
               <button className="categoria-b" onClick={() => { sentWish(produto.id) }}>

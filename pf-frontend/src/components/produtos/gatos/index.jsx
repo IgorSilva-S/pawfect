@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import './style.css';
 
 export default function Gatos() {
+
+    useEffect(() => {
+    sessionStorage.setItem('lastPage', '/gatos')
+  })
+
   return (
     <div className="animais-container">
       <div className="animais-top">

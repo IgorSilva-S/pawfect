@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { use, useEffect } from 'react';
 import './style.css';
 
 export default function Passaros() {
+
+  useEffect(() => {
+    sessionStorage.setItem('lastPage', '/passaros')
+  })
+
   return (
     <div className="animais-container">
       <div className="animais-top">
@@ -13,7 +19,7 @@ export default function Passaros() {
       <div className="animais-bottom">
         <img src="/img/produtos-passaros/passaros1.png" alt="Pássaros categoria" className="animais-img-lateral" />
         <div className="animais-categorias">
-          <Link to="/pássaro/1" className="animais-categoria">
+          <Link to="/pássaro/1" className="animais-categoria" >
             <img src="/img/produtos-passaros/img-circles/a-calopsita.png" alt="Calopsitas" />
             <p>Calopsitas</p>
           </Link>

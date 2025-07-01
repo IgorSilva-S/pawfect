@@ -21,6 +21,7 @@
   width: 93%;
   background-color: transparent;
   align-items: flex-start;
+  overflow: hidden;
 }
 
 .itens {
@@ -30,7 +31,7 @@
   border-radius: 0.75rem;
   border: 4px solid var(--vclaro2);
   color: var(--vescuro);
-  overflow: visible;
+  overflow: hidden;
   transition: max-height 0.18s linear;
 }
 
@@ -47,7 +48,7 @@
   margin-left: -1vw;
   margin-top: -2.1vh;
   background-color: var(--vclaro2);
-  border-radius: 0.5rem 0.5rem 0 0;
+
   width: 103%;
   height: 11vh;
   padding-left: 1.8vw;
@@ -107,6 +108,7 @@
   align-items: center;
   gap: 2.5vw;
   margin-right: 1.2vw;
+  width: 30%;
 }
 
 .quantidade {
@@ -259,4 +261,39 @@
 
 .comprar-btn:hover {
   border: 2px solid var(--vmedio);
+}
+
+.prodLoadingSpin {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  border: 5px solid transparent;
+  border-right-color: var(--vescuro);
+  border-left-color: var(--vescuro);
+  animation: spinning 1s linear infinite;
+  margin-right: 50px;
+}
+
+@keyframes spinning {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+.numInp {
+  border: 3px solid var(--vmedio);
+  border-radius: 4px;
+  background-color: transparent;
+  font-size: 20px;
+  font-family: corpo;
+  padding-left: 5px;
+  width: 90px;
+  color: var(--vescuro)
+}
+
+.numInp:focus {
+  outline: none;
 }

@@ -1,88 +1,98 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./style.css";
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Carrinho() {
-  const [expandido, setExpandido] = useState(true);
+  const [produtos, setProdutos] = useState([]);
+  const Navigate = useNavigate()
 
-  const produtosIniciais = [
-    {
-      id: 1,
-      nome: "Med Snack - Petisco para Medicamentos",
-      preco: 29.99,
-      imagem: "/img/cart/recomendacoes-img/medsnack.png",
-      vendedor: "Pawfect",
-      quantidade: 1,
-    },
-    { 
-      id: 2,
-      nome: "Petisco sabor Frango",
-      preco: 29.99,
-      imagem: "/img/cart/recomendacoes-img/medsnack.png",
-      vendedor: "Pawfect",
-      quantidade: 1,
-    },
-  ];
+  useEffect(() => {
+    const getCart = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const tokenRes = await fetch('http://localhost:3000/api/user/profile/', {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `bearer ${token}`
+          }
+        });
 
-  const [produtos, setProdutos] = useState(produtosIniciais);
+        if (!tokenRes.ok) {
+          navigate('/user');
+          return;
+        }
 
-  function alterarQuantidade(id, delta) {
-    setProdutos((produtosAtuais) =>
-      produtosAtuais.map((p) =>
-        p.id === id
-          ? { ...p, quantidade: Math.max(1, p.quantidade + delta) }
-          : p
-      )
-    );
+        const { user } = await tokenRes.json();
+
+        const cartRes = await fetch(`http://localhost:3000/api/cart/list/user/${user.email}`);
+        let jsonCart = await cartRes.json()
+        jsonCart = jsonCart.cart
+        const productsRes = await fetch('http://localhost:3000/api/product/list/all');
+        const prods = (await productsRes.json()).data.products;
+        const cartData = jsonCart.map(comprinha => {
+          const product = prods.find(produtin => produtin.id === comprinha.prodId);
+          return { ...product, cartId: comprinha.id };
+        });
+        setProdutos(cartData)
+        document.getElementById('loadingProds').style.display = 'none'
+
+      } catch (err) {
+        console.error(`Tivemos um probleminha aqui 🫠: ${err.message}`)
+      }
+
+    }
+
+    getCart()
+  }, [])
+
+  const removeCart = async (id) => {
+    try {
+      const delRes = await fetch(`http://localhost:3000/api/cart/remove/${id}`, {
+        method: 'DELETE'
+      })
+
+
+      if (delRes.ok) {
+        Navigate('/cart')
+      }
+    } catch (err) {
+      console.error(`Tivemos um probleminha aqui 🫠: ${err.message}`)
+    }
   }
 
-  const totalGeral = produtos.reduce(
-    (acc, produto) => acc + produto.preco * produto.quantidade,
-    0
-  );
+  const purchaseItem = async (id) => {
+    console.log('Purchase')
+  }
 
   return (
     <div className="carrinho">
       <p className="titulo">Meu carrinho</p>
 
-      <div className={`conteudo ${!expandido ? "miniatura" : ""}`}>
+      <div className={`conteudo`}>
         <div className="itens">
           <div className="topo">
             <p>
-              Pawfect (
-              {produtos.reduce((acc, p) => acc + p.quantidade, 0)} itens)
+              Pawfect ({produtos.length} {produtos.length === 1 ? 'item' : 'itens'})
             </p>
-            <button onClick={() => setExpandido(!expandido)}>
-              <img
-                className="seta-cart"
-                src={
-                  expandido
-                    ? "/img/cart/seta-cima.png"
-                    : "/img/cart/seta-baixo.png"
-                }
-                alt="Abrir ou fechar"
-              />
-            </button>
+            <div className="prodLoadingSpin" id="loadingProds"></div>
           </div>
 
-          {expandido ? (
-            <div>
-              {produtos.map((produto, index) => (
-                <div
-                  key={produto.id}
-                  className={`item ${
-                    index === produtos.length - 1 ? "sem-linha" : ""
+          <div>
+            {produtos.map((produto, index) => (
+              <div
+                key={produto.id}
+                className={`item ${index === produtos.length - 1 ? "sem-linha" : ""
                   }`}
-                >
-                  <img src={produto.imagem} alt="Produto" className="foto" />
+              >
+                <img src={produto.imageLink} alt="Produto" className="foto" />
 
-                  <div className="info">
-                    <p>{produto.nome}</p>
-                    <small>Vendido por {produto.vendedor}</small>
-                  </div>
+                <div className="info">
+                  <p>{produto.prodName}</p>
+                </div>
 
-                  <div className="acoes">
-                    <div className="quantidade">
+                <div className="acoes">
+                  {/* <div className="quantidade">
                       <button onClick={() => alterarQuantidade(produto.id, -1)}>
                         -
                       </button>
@@ -90,81 +100,31 @@ export default function Carrinho() {
                       <button onClick={() => alterarQuantidade(produto.id, 1)}>
                         +
                       </button>
-                    </div>
-                    <p className="preco-q">
-                      R$ {(produto.preco * produto.quantidade).toFixed(2)}
-                    </p>
-                    <img
-                      className="lixeira-cart"
-                      src="/img/cart/lixeira.png"
-                      alt="Remover"
-                    />
+                    </div> */}
+                  <p className="preco-q">
+                    R$ {(Number(produto.prodValue)).toFixed(2)}
+                  </p>
+                  <div>
+                    <label htmlFor={`${produto.cartId}Inp`}>Quantidade:</label>
+                    <input type="number" name="" id={`${produto.cartId}Inp`} min="1" className="numInp" defaultValue={1} onChange={() => {
+                      if (document.getElementById(`${produto.cartId}Inp`).value < 0) {
+                        document.getElementById(`${produto.cartId}Inp`).value = 1
+                      }
+                    }}/>
                   </div>
+                  <button className="btn" onClick={() => {purchaseItem(produto.cartId)}}>
+                    Comprar
+                  </button>
+                  <img
+                    className="lixeira-cart"
+                    src="/img/cart/lixeira.png"
+                    alt="Remover"
+                    onClick={() => { removeCart(produto.cartId) }}
+                  />
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="miniaturas">
-              {(() => {
-                const imagensExpandida = produtos.flatMap((produto) =>
-                  Array(produto.quantidade).fill(produto.imagem)
-                );
-                const imagensLimitadas = imagensExpandida.slice(0, 18);
-                const temMais = imagensExpandida.length > 18;
-
-                return (
-                  <>
-                    {imagensLimitadas.map((src, i) => (
-                      <img key={i} src={src} alt="Produto" className="mini" />
-                    ))}
-                    {temMais && <div className="mais-itens">...</div>}
-                    <span>R$ {totalGeral.toFixed(2)}</span>
-                  </>
-                );
-              })()}
-            </div>
-          )}
-        </div>
-
-        <div className="resumo">
-          <h2>Resumo do pedido</h2>
-
-          <div className="linhas">
-            <div>
-              <span>
-                Produtos ({produtos.reduce((acc, p) => acc + p.quantidade, 0)})
-              </span>
-              <span>R$ {totalGeral.toFixed(2)}</span>
-            </div>
-            <div>
-              <span>Descontos</span>
-              <span>R$ 0,00</span>
-            </div>
-            <div>
-              <span>Subtotal</span>
-              <span>R$ {totalGeral.toFixed(2)}</span>
-            </div>
-            <div>
-              <span>Frete</span>
-              <span>R$ 0,00</span>
-            </div>
-            <div className="total">
-              <span>Total:</span>
-              <span>R$ {totalGeral.toFixed(2)}</span>
-            </div>
+              </div>
+            ))}
           </div>
-
-          {expandido && (
-            <>
-             <Link to="#" className="comprar-btn">
-              <p>Comprar</p>
-             </Link>
-
-            <Link to="/" className="btn">
-              <p>Continuar comprando</p>
-            </Link>
-            </>
-          )}
         </div>
       </div>
     </div>

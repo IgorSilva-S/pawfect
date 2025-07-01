@@ -111,11 +111,6 @@ router.get("/list/user/:email", async (req, res) => {
             return res.status(404).json({ error: 'Cannot found user' })
         }
 
-
-        if (cartAll.length <= 0) {
-            return res.status(400).json({ error: 'Not found in cart' })
-        }
-
         return res.status(200).json({ message: `Get cart from the user ${user.name}`, cart: cartAll })
     } catch (err) {
         return res.status(400).json({ message: err })

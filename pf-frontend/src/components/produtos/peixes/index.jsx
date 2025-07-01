@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import './style.css';
 
 export default function Peixes() {
+
+    useEffect(() => {
+    sessionStorage.setItem('lastPage', '/peixes')
+  })
+
   return (
     <div className="animais-container">
       <div className="animais-top">

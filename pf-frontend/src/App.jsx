@@ -7,6 +7,7 @@ import Home from './components/home';
 import User from './components/user';
 import CartVazio from './components/cart/vazioo';
 import CartCheio from './components/cart/cheio';
+import Lcart from './components/cart/loading';
 import LikesPage from './components/likes'
 import Perfil from "./components/user/perfil";
 import Cadastro from "./components/user/cadastro";
@@ -31,9 +32,10 @@ function App() {
 
   return (
     <>
-     <TitleBar />
-     <Routes> 
+      <TitleBar />
+      <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Lcart />} />
         <Route path="/cart/vazio" element={<CartVazio />} />
         <Route path="/cart/cheio" element={<CartCheio />} />
         <Route path="/liked" element={<LikesPage />} />
@@ -49,14 +51,14 @@ function App() {
         <Route path="/roedores" element={<Roedores />} />
         <Route path="/peixes" element={<Peixes />} />
         <Route path="/materia1" element={<Materia1 />} />
-        <Route path="/materia2" element={<Materia2 />} /> 
+        <Route path="/materia2" element={<Materia2 />} />
         <Route path="/materia3" element={<Materia3 />} />
         <Route path="/materia4" element={<Materia4 />} />
         <Route path="/materia5" element={<Materia5 />} />
         <Route path="/:animal/:id" element={<PaginaCategoriaAnimal />} />
         <Route path="/nota-fiscal" element={<NotaFiscal />} />
       </Routes>
-    <Footer />
+      <Footer />
     </>
   )
 }

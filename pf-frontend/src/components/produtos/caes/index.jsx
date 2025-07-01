@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import './style.css';
 
 export default function Caes() {
+
+    useEffect(() => {
+      sessionStorage.setItem('lastPage', '/caes')
+    })
+
   return (
     <div className="animais-container">
       <div className="animais-top">
