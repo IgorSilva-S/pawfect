@@ -12,7 +12,7 @@ export default function Gatos() {
     <div className="animais-container">
       <div className="animais-top">
         <p className="animais-titulo">Produtos para gatos</p>
-        <img src="/img/produtos-gatos/gatos.png" alt="Animais" className="animais-img-top" />
+        <img src="/img/produtos-banners/gatos.png" alt="Animais" className="animais-img-top" />
         <p className="animais-subtitulo">Encontre tudo o que o seu felino precisa</p>
       </div>
 

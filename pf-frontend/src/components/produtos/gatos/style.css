@@ -2,6 +2,10 @@
   padding: 2vw;
   border-radius: 1vw;
   margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8vh; 
 }
 
 .animais-top {
@@ -14,13 +18,12 @@
   flex-wrap: wrap;
   font-family: corpo;
   width: 90%;
-  height: 15vh;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 8vh;
+  margin: 0 auto;
+  gap: 2vw;
+  height: auto; 
 }
 
-.animais-titulo{
+.animais-titulo {
   font-size: 2vw;
   color: var(--vescuro);
   max-width: 30%;
@@ -33,17 +36,19 @@
   color: var(--vescuro);
   padding-right: 2.5vw;
   width: 20vw;
+  margin-left: 2vw;
 }
 
 .animais-img-top {
-  height: 25vw;
-  position: absolute;
-  left: 35vw;
+  display: block;
+  max-width: 90%;
+  height: auto;
+  margin: -5vh auto 0 auto;
+  margin-bottom: -6vh;
+  margin-left: -12vw;
 }
 
 .animais-bottom {
-  margin-top: 2vw;
-  margin-bottom: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -52,23 +57,23 @@
   padding: 2vw;
   flex-wrap: wrap;
   width: 70%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 10vh auto;
+  gap: 2vw;
 }
 
 .animais-img-lateral {
-   position: absolute;
-   width: 15vw;
-   left: 9vw;
+  position: absolute;
+  width: 15vw;
+  left: 9vw;
 }
 
 .animais-categorias {
   display: flex;
   gap: 7vw;
   flex-wrap: wrap;
-  margin-right: -6vw;
   align-items: center;
   justify-content: center;
+  margin-right: -6vw;
 }
 
 .animais-categoria {

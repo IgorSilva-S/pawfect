@@ -2,25 +2,28 @@
   padding: 2vw;
   border-radius: 1vw;
   margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6vh;
 }
 
 .animais-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   background-color: var(--vclaro2);
   padding: 1.5vw 2vw;
   border-radius: 1.5vw;
-  flex-wrap: wrap;
   font-family: corpo;
   width: 90%;
-  height: 15vh;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 8vh;
+  margin: 0 auto;
+  gap: 2vw;
+  height: auto;
 }
 
-.animais-titulo{
+.animais-titulo {
   font-size: 2vw;
   color: var(--vescuro);
   max-width: 30%;
@@ -36,39 +39,40 @@
 }
 
 .animais-img-top {
-  height: 25vw;
-  position: absolute;
-  left: 35vw;
+  width: auto;
+  max-width: 30%;
+  height: auto;
+  max-height: 40vh;   
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 8vh;
 }
 
 .animais-bottom {
-  margin-top: 2vw;
-  margin-bottom: 10vh;
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-wrap: wrap;
   background-color: var(--vclaro2);
   border-radius: 1.5vw;
   padding: 2vw;
-  flex-wrap: wrap;
   width: 70%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 10vh auto;
+  gap: 2vw;
 }
 
 .animais-img-lateral {
-   position: absolute;
-   width: 15vw;
-   left: 9vw;
+  position: absolute;
+  width: 15vw;
+  left: 9vw;
 }
 
 .animais-categorias {
   display: flex;
-  gap: 7vw;
   flex-wrap: wrap;
-  margin-right: -6vw;
   align-items: center;
   justify-content: center;
+  gap: 7vw;
 }
 
 .animais-categoria {

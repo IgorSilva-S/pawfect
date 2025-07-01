@@ -36,9 +36,13 @@
 }
 
 .animais-img-top {
-  height: 25vw;
-  position: absolute;
-  left: 35vw;
+  width: 33vw;
+  height: auto;
+  margin-top: -10vh;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .animais-bottom {

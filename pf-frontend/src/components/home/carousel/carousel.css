@@ -126,13 +126,14 @@
 #carousel4 {
     background-position: center;
     background-size: cover;
-    background-image: url('/img/banners-carrossel/placeholder.png');
+    background-image: url('/img/banners-carrossel/banner4.png');
+    border: 5px solid var(--vmedio);
 }
 
 #carousel5 {
     background-position: center;
     background-size: cover;
-    background-image: url('/img/banners-carrossel/placeholder.png');
+    background-image: url('/img/banners-carrossel/banner5.png');
 }
 
 .cloadingSpin {
