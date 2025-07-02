@@ -131,6 +131,35 @@ router.get("/list/:id", async (req, res) => {
   }
 })
 
+router.get("/list/user/:email", async (req, res) => {
+      try {
+        let transAll = await prisma.transactions.findMany()
+        let { email } = req.params
+
+        const user = await prisma.user.findUnique({ where: { email: email } })
+        if (user && !user.deleted) {
+            try {
+                transAll.forEach((trans) => {
+                    if (trans.userId != user.id) {
+                        let index = transAll.findIndex(trans)
+                        if (index > -1) {
+                            transAll.splice(index, 1)
+                        }
+                    }
+                })
+            } catch (err) {
+                return res.sendStatus(204)
+            }
+        } else {
+            return res.status(404).json({ error: 'Cannot found user' })
+        }
+
+        return res.status(200).json({ message: `Get transactions from the user ${user.name}`, transaction: transAll })
+    } catch (err) {
+        return res.status(400).json({ message: err })
+    }
+})
+
 router.get("/fullTransaction/:id", async (req, res) => {
   try {
     const { id } = req.params

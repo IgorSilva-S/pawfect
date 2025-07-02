@@ -62,6 +62,53 @@ export default function Favoritos() {
     }
   }
 
+  const addCart = async (id) => {
+ try {
+      let token = localStorage.getItem('token')
+      let tokenData = await fetch('http://localhost:3000/api/user/profile/', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${token}`
+        },
+      })
+
+      if (tokenData.ok) {
+        console.log('Token OK')
+      } else {
+        navigate('/user')
+        return
+      }
+      let resMsg = await tokenData.json()
+      let user = resMsg.user
+      console.log(user.id)
+      console.log(id)
+      let prodId = id
+      let userId = user.id
+
+      try {
+        await fetch('http://localhost:3000/api/cart/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify({
+            "prodId": prodId,
+            "userId": userId
+          })
+        })
+      } catch (err) {
+        console.error(`Tivemos um probleminha 🫠: ${err}`)
+      }
+
+      navigate('/cart')
+
+    } catch (err) {
+      console.error(`Tivemos um probleminha 🫠: ${err}`)
+    }
+  }
+
   return (
     <div id="favoritos">
       <p id="title-favoritos">Favoritos:</p>
@@ -78,7 +125,7 @@ export default function Favoritos() {
             <p className="favorito-p">{produto.prodName}</p>
             <p className="favorito-preco">R$ {Number(produto.prodValue).toFixed(2)}</p>
             <div className="favorito-bs">
-              <button className="favorito-b">
+              <button className="favorito-b" onClick={() => {addCart(produto.id)}}>
                 <img src="/img/menu/carrinho.png" alt="Adicionar ao carrinho" />
               </button>
               <button className="favorito-b" onClick={() => { delWish(produto.wishId) }}>

@@ -22,7 +22,7 @@ export default function Perfil() {
 
       <div className="options">
 
-         <Link to="/pedidos/vazio">
+         <Link to="/pedidos">
                  <div className="option">
                    <img src="/img/perfil/pedidos-button.png" alt="Pedidos" className="img-button1"/>
                  </div>

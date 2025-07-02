@@ -1,0 +1,33 @@
+.loadingSpin {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  border: 10px solid transparent;
+  border-right-color: var(--vescuro);
+  border-left-color: var(--vescuro);
+  animation: spinning 1s linear infinite;
+}
+
+@keyframes spinning {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+.cartLoad {
+  margin: 120px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px
+}
+
+.cartLoad h1 {
+  color: var(--vescuro);
+  font-family: corpo;
+  font-size: 35px;
+}

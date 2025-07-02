@@ -12,6 +12,7 @@ import LikesPage from './components/likes'
 import Perfil from "./components/user/perfil";
 import Cadastro from "./components/user/cadastro";
 import Dados from "./components/user/dados";
+import Lpedidos from './components/user/pedidos/loading';
 import PedidosCheio from "./components/user/pedidos/cheio";
 import PedidosVazio from "./components/user/pedidos/vazioo";
 import Gatos from "./components/produtos/gatos"
@@ -43,6 +44,7 @@ function App() {
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/dados" element={<Dados />} />
+        <Route path="/pedidos" element={<Lpedidos />} />
         <Route path="/pedidos/vazio" element={<PedidosVazio />} />
         <Route path="/pedidos/cheio" element={<PedidosCheio />} />
         <Route path="/gatos" element={<Gatos />} />

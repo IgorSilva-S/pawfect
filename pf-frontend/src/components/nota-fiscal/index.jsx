@@ -8,10 +8,12 @@ export default function NotaFiscal() {
       <p className="fiscal-p">Compra realizada!</p>
       <img className="fiscal-img" src="/img/nota-fiscal/fiscal.png"></img>
       <div className="fiscal-btns">
-          <button className="fiscal-btn">Gerar nota fiscal</button>
-          <Link to="/">
-            <button className="fiscal-btn">Voltar para o ínicio</button>
-          </Link>
+        <Link to="/">
+          <button className="fiscal-btn">Voltar para o ínicio</button>
+        </Link>
+        <Link to="/pedidos">
+          <button className="fiscal-btn">Ir para meus pedidos</button>
+        </Link>
       </div>
     </div>
   );
