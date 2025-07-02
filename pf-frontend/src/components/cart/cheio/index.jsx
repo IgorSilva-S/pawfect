@@ -92,7 +92,7 @@ export default function Carrinho() {
       if (purchaseFetch.ok) {
         const pFetch = await purchaseFetch.json()
         sessionStorage.setItem('tId', pFetch.transaction.id)
-        await fetch(`http://localhost:3000/api/cart/remove/${id}`, {
+        await fetch(`http://localhost:3000/api/cart/remove/${cId}`, {
           method: 'DELETE'
         })
         Navigate('/nota-fiscal')

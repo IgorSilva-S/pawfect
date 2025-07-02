@@ -25,7 +25,13 @@ export default function Lcart() {
                 const { user } = await tokenRes.json();
 
                 const cartRes = await fetch(`http://localhost:3000/api/cart/list/user/${user.email}`);
-                const jsonCart = await cartRes.json()
+                let jsonCart
+                try {
+                    jsonCart = await cartRes.json()
+                } catch {
+                    navigate('/cart/vazio')
+                    return
+                }
                 console.log(jsonCart.cart)
                 if (jsonCart.cart.length <= 0) {
                     navigate('/cart/vazio')
